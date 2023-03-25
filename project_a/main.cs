@@ -1,23 +1,28 @@
 using OPCAutomation;
+using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 
 namespace ProjectA
 {
     public partial class main : Form
     {
         private OPCServer server;
-        private OPCGroups groups;
-        private OPCGroup group;
-        private OPCItems items;
-        private OPCItem item;
+        private OPCGroups? groups;
+        private OPCGroup? group;
+        private OPCItems? items;
+        private OPCItem? item;
+        private IConfigurationRoot _root;
 
-
-        public main()
+        public main(IConfigurationRoot root)
         {
             InitializeComponent();
+            _root = root;
             server = new OPCServer();
-            server.Connect("Kepware.KEPServerEX.V6");
+            server.Connect(_root["server_name"]);
             if (server.ServerState == (int)OPCServerState.OPCRunning)
             {
+                this.server_connect_stratus.Text = "服务器连接状态：已连接";
+                this.server_connect_stratus.ForeColor = Color.Green;
                 groups = server.OPCGroups;
                 groups.DefaultGroupDeadband = 0;
                 groups.DefaultGroupIsActive = true;
@@ -25,27 +30,15 @@ namespace ProjectA
                 group = groups.Add("group1");
                 group.IsSubscribed = true;
                 items = group.OPCItems;
-                item = items.AddItem("ch1.dev1.item1", 1);
+                item = items.AddItem("ch1.dev1.item1", 0);
+                this.dataGridView1.Rows.Add("ch1.dev1.item1", 0);
                 group.DataChange += Group_DataChange;
             }
         }
 
         private void Group_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            for (int i = 1; i <= NumItems; i++)
-            {
-                //int tmpClientHandle = Convert.ToInt32(ClientHandles.GetValue(i));
-                //string tmpValue = ItemValues.GetValue(i).ToString();
-                //string tmpTime = ((DateTime)(TimeStamps.GetValue(i))).ToString();
-                //Console.WriteLine("Time:" + tmpTime);
-                //Console.WriteLine("ClientHandle : " + tmpClientHandle.ToString());
-                //Console.WriteLine("tag value " + tmpValue);
-
-            }
+            this.dataGridView1.Rows[(int)ClientHandles.GetValue(1)].Cells[1].Value = ItemValues.GetValue(1).ToString();
         }
-
-
-
     }
 }
