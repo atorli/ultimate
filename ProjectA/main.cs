@@ -35,7 +35,6 @@ namespace ProjectA
             Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 1; i <= NumItems; i++)
             {
-                this.label1.Text = ItemValues.GetValue(i).ToString();
                 //int tmpClientHandle = Convert.ToInt32(ClientHandles.GetValue(i));
                 //string tmpValue = ItemValues.GetValue(i).ToString();
                 //string tmpTime = ((DateTime)(TimeStamps.GetValue(i))).ToString();
