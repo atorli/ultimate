@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
-using log4net;
+using NLog;
 
-[assembly: log4net.Config.XmlConfigurator(ConfigFile ="settings/log4net.config",Watch =true)]
 namespace ProjectA
 {
     internal static class Program
@@ -12,6 +11,9 @@ namespace ProjectA
         [STAThread]
         static void Main()
         {
+            NLog.LogManager.LoadConfiguration("settings/NLog.config");
+            NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+            
             ConfigurationBuilder builder = new ConfigurationBuilder();
             builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("settings/application.json", true, true);
             var root = builder.Build();
