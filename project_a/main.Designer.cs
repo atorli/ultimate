@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             statusStrip1 = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
-            dataGridView1 = new DataGridView();
+            opc_item_table = new DataGridView();
             item_addr = new DataGridViewTextBoxColumn();
             value = new DataGridViewTextBoxColumn();
             statusStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)opc_item_table).BeginInit();
             SuspendLayout();
             // 
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { server_connect_stratus });
-            statusStrip1.Location = new Point(0, 578);
+            statusStrip1.Location = new Point(0, 739);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 22);
+            statusStrip1.Size = new Size(1184, 22);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -63,7 +63,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 25);
+            menuStrip1.Size = new Size(1184, 25);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -73,22 +73,22 @@
             文件ToolStripMenuItem.Size = new Size(44, 21);
             文件ToolStripMenuItem.Text = "文件";
             // 
-            // dataGridView1
+            // opc_item_table
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.ForeColor = Color.Silver;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { item_addr, value });
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 25);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(800, 553);
-            dataGridView1.TabIndex = 3;
+            opc_item_table.AllowUserToAddRows = false;
+            dataGridViewCellStyle2.ForeColor = Color.Silver;
+            opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            opc_item_table.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            opc_item_table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            opc_item_table.Columns.AddRange(new DataGridViewColumn[] { item_addr, value });
+            opc_item_table.Dock = DockStyle.Fill;
+            opc_item_table.Location = new Point(0, 25);
+            opc_item_table.Name = "opc_item_table";
+            opc_item_table.ReadOnly = true;
+            opc_item_table.RowHeadersVisible = false;
+            opc_item_table.RowTemplate.Height = 25;
+            opc_item_table.Size = new Size(1184, 714);
+            opc_item_table.TabIndex = 3;
             // 
             // item_addr
             // 
@@ -108,20 +108,20 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 600);
-            Controls.Add(dataGridView1);
+            ClientSize = new Size(1184, 761);
+            Controls.Add(opc_item_table);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ultimate";
-            //WindowState = FormWindowState.Maximized;
+            Shown += main_Shown;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)opc_item_table).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -131,7 +131,7 @@
         private ToolStripStatusLabel server_connect_stratus;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem 文件ToolStripMenuItem;
-        private DataGridView dataGridView1;
+        private DataGridView opc_item_table;
         private DataGridViewTextBoxColumn item_addr;
         private DataGridViewTextBoxColumn value;
     }
