@@ -116,7 +116,7 @@
             Name = "main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ultimate";
-            WindowState = FormWindowState.Maximized;
+            //WindowState = FormWindowState.Maximized;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             menuStrip1.ResumeLayout(false);

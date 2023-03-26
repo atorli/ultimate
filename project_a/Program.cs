@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using log4net;
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile ="settings/log4net.config",Watch =true)]
 namespace ProjectA
 {
     internal static class Program
