@@ -34,10 +34,11 @@
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
             opc_item_table = new DataGridView();
-            item_addr = new DataGridViewTextBoxColumn();
-            value = new DataGridViewTextBoxColumn();
             splitContainer1 = new SplitContainer();
             pictureBox1 = new PictureBox();
+            item_addr = new DataGridViewTextBoxColumn();
+            desc = new DataGridViewTextBoxColumn();
+            value = new DataGridViewTextBoxColumn();
             statusStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)opc_item_table).BeginInit();
@@ -83,11 +84,12 @@
             // opc_item_table
             // 
             opc_item_table.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.ForeColor = Color.Silver;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.ForeColor = Color.Black;
             opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             opc_item_table.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             opc_item_table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            opc_item_table.Columns.AddRange(new DataGridViewColumn[] { item_addr, value });
+            opc_item_table.Columns.AddRange(new DataGridViewColumn[] { item_addr, desc, value });
             opc_item_table.Dock = DockStyle.Fill;
             opc_item_table.Location = new Point(0, 0);
             opc_item_table.Name = "opc_item_table";
@@ -96,20 +98,6 @@
             opc_item_table.RowTemplate.Height = 25;
             opc_item_table.Size = new Size(580, 714);
             opc_item_table.TabIndex = 3;
-            // 
-            // item_addr
-            // 
-            item_addr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            item_addr.HeaderText = "地址";
-            item_addr.Name = "item_addr";
-            item_addr.ReadOnly = true;
-            // 
-            // value
-            // 
-            value.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            value.HeaderText = "值";
-            value.Name = "value";
-            value.ReadOnly = true;
             // 
             // splitContainer1
             // 
@@ -137,6 +125,27 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            // 
+            // item_addr
+            // 
+            item_addr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            item_addr.HeaderText = "地址";
+            item_addr.Name = "item_addr";
+            item_addr.ReadOnly = true;
+            // 
+            // desc
+            // 
+            desc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            desc.HeaderText = "描述";
+            desc.Name = "desc";
+            desc.ReadOnly = true;
+            // 
+            // value
+            // 
+            value.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            value.HeaderText = "值";
+            value.Name = "value";
+            value.ReadOnly = true;
             // 
             // main
             // 
@@ -171,9 +180,10 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem 文件ToolStripMenuItem;
         private DataGridView opc_item_table;
-        private DataGridViewTextBoxColumn item_addr;
-        private DataGridViewTextBoxColumn value;
         private SplitContainer splitContainer1;
         private PictureBox pictureBox1;
+        private DataGridViewTextBoxColumn item_addr;
+        private DataGridViewTextBoxColumn desc;
+        private DataGridViewTextBoxColumn value;
     }
 }
