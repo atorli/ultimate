@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             statusStrip1 = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
             menuStrip1 = new MenuStrip();
-            文件ToolStripMenuItem = new ToolStripMenuItem();
+            file_menu = new ToolStripMenuItem();
+            import_csv_file = new ToolStripMenuItem();
             opc_item_table = new DataGridView();
-            splitContainer1 = new SplitContainer();
-            pictureBox1 = new PictureBox();
             item_addr = new DataGridViewTextBoxColumn();
             desc = new DataGridViewTextBoxColumn();
             value = new DataGridViewTextBoxColumn();
+            splitContainer1 = new SplitContainer();
+            pictureBox1 = new PictureBox();
             statusStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)opc_item_table).BeginInit();
@@ -68,25 +69,38 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { file_menu });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1184, 25);
+            menuStrip1.Size = new Size(1184, 26);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
-            // 文件ToolStripMenuItem
+            // file_menu
             // 
-            文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            文件ToolStripMenuItem.Size = new Size(44, 21);
-            文件ToolStripMenuItem.Text = "文件";
+            file_menu.DropDownItems.AddRange(new ToolStripItem[] { import_csv_file });
+            file_menu.Font = new Font("黑体", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            file_menu.Name = "file_menu";
+            file_menu.ShowShortcutKeys = false;
+            file_menu.Size = new Size(56, 22);
+            file_menu.Text = "文件";
+            // 
+            // import_csv_file
+            // 
+            import_csv_file.Font = new Font("黑体", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            import_csv_file.Name = "import_csv_file";
+            import_csv_file.ShortcutKeys = Keys.F1;
+            import_csv_file.ShowShortcutKeys = false;
+            import_csv_file.Size = new Size(195, 22);
+            import_csv_file.Text = "导入地址文件(F1)";
+            import_csv_file.Click += import_csv_file_Click;
             // 
             // opc_item_table
             // 
             opc_item_table.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = Color.White;
+            dataGridViewCellStyle4.ForeColor = Color.Black;
+            opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             opc_item_table.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             opc_item_table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             opc_item_table.Columns.AddRange(new DataGridViewColumn[] { item_addr, desc, value });
@@ -96,35 +110,8 @@
             opc_item_table.ReadOnly = true;
             opc_item_table.RowHeadersVisible = false;
             opc_item_table.RowTemplate.Height = 25;
-            opc_item_table.Size = new Size(580, 714);
+            opc_item_table.Size = new Size(580, 713);
             opc_item_table.TabIndex = 3;
-            // 
-            // splitContainer1
-            // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 25);
-            splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            splitContainer1.Panel1.Controls.Add(pictureBox1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            splitContainer1.Panel2.Controls.Add(opc_item_table);
-            splitContainer1.Size = new Size(1184, 714);
-            splitContainer1.SplitterDistance = 600;
-            splitContainer1.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(600, 714);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
             // 
             // item_addr
             // 
@@ -146,6 +133,33 @@
             value.HeaderText = "值";
             value.Name = "value";
             value.ReadOnly = true;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.Location = new Point(0, 26);
+            splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(pictureBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(opc_item_table);
+            splitContainer1.Size = new Size(1184, 713);
+            splitContainer1.SplitterDistance = 600;
+            splitContainer1.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(600, 713);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // main
             // 
@@ -178,12 +192,13 @@
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel server_connect_stratus;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem 文件ToolStripMenuItem;
+        private ToolStripMenuItem file_menu;
         private DataGridView opc_item_table;
         private SplitContainer splitContainer1;
         private PictureBox pictureBox1;
         private DataGridViewTextBoxColumn item_addr;
         private DataGridViewTextBoxColumn desc;
         private DataGridViewTextBoxColumn value;
+        private ToolStripMenuItem import_csv_file;
     }
 }

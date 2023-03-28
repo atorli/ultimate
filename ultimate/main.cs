@@ -10,6 +10,9 @@ namespace ProjectA
     public partial class main : Form
     {
         private OPCServer _server;
+        private OPCGroups? _groups;
+        private OPCGroup? _group;
+        private OPCItems? _items;
         private IConfigurationRoot _root;
         private NLog.Logger _logger;
         private DataTable? _dt;
@@ -50,30 +53,16 @@ namespace ProjectA
                     this.server_connect_stratus.Text = "服务器连接状态：已连接";
                     this.server_connect_stratus.ForeColor = Color.Green;
 
-                    OPCGroups groups = _server.OPCGroups;
-                    groups.DefaultGroupDeadband = 0;
-                    groups.DefaultGroupIsActive = true;
-                    groups.DefaultGroupUpdateRate = 250;
+                    _groups = _server.OPCGroups;
+                    _groups.DefaultGroupDeadband = 0;
+                    _groups.DefaultGroupIsActive = true;
+                    _groups.DefaultGroupUpdateRate = 250;
 
-                    OPCGroup group = groups.Add("group1");
+                    OPCGroup group = _groups.Add("group1");
                     group.IsSubscribed = true;
                     group.DataChange += Group_DataChange;
 
-                    OPCItems items = group.OPCItems;
-
-                    _dt = csv_parse.parse("./test.csv");
-
-                    int idx = 0;
-                    foreach (DataRow row in _dt.Rows)
-                    {
-                        items.AddItem(row[0].ToString(), idx);
-                        this.opc_item_table.Rows.Add(row[0].ToString(),row[1].ToString(),0);
-                        idx++;
-                    }
-                    //OpenFileDialog fd = new OpenFileDialog();
-                    //fd.Filter = "csv文件(*.csv)|*.csv";
-                    //fd.ShowDialog();
-                    _logger.Info("监听数据初始化完成，开始监听中......");
+                    _items = group.OPCItems;
                 }
                 else
                 {
@@ -85,6 +74,36 @@ namespace ProjectA
             {
                 //连接失败
                 _logger.Error($"连接KepServer失败，{ex.Message}.请检查Kepserver是否正常运行以及配置文件中的服务器名称是否正确!");
+            }
+        }
+
+        private void import_csv_file_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "csv文件(*.csv)|*.csv";
+
+                int idx = 0;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (_items is not null)
+                    {
+                        _dt = csv_parse.parse(dialog.FileName);
+                        foreach (DataRow row in _dt.Rows)
+                        {
+                            _items.AddItem(row[0].ToString(), idx);
+                            this.opc_item_table.Rows.Add(row[0].ToString(), row[1].ToString(), 0);
+                            idx++;
+                        }
+                    }
+                }
+                _logger.Info("监听数据初始化完成，开始监听中......");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"处理导入的地址文件失败，失败信息:{ex.Message}");
             }
         }
     }
