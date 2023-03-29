@@ -98,13 +98,16 @@ namespace ProjectA
                         }
                     }
                 }
-                _logger.Info("监听数据初始化完成，开始监听中......");
-
             }
             catch (Exception ex)
             {
                 _logger.Error($"处理导入的地址文件失败，失败信息:{ex.Message}");
             }
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

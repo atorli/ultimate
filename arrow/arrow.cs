@@ -1,8 +1,8 @@
 ﻿namespace WinFormsControlLibrary1
 {
-    public partial class arrow : UserControl
+    public partial class Arrow : UserControl
     {
-        public arrow()
+        public Arrow()
         {
             InitializeComponent();
         }
