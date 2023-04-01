@@ -4,27 +4,12 @@ namespace WinFormsControlLibrary1
 {
     partial class Arrow
     {
+        #region Component Designer generated code
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        private Point p1 = new Point();
-        private Point p2 = new Point();
-        private Point p3 = new Point();
-        private Point p4 = new Point();
-        private Point p5 = new Point();
-        private Point p6 = new Point();
-        private Point p7 = new Point();
-        
-        public enum Direction
-        {
-            Right,
-            Left,
-            Up,
-            Down
-        }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -39,10 +24,77 @@ namespace WinFormsControlLibrary1
             base.Dispose(disposing);
         }
 
-        public Color PaintColor { get; set; } = Color.Black;
+        /// <summary>
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            SuspendLayout();
+            // 
+            // arrow
+            // 
+            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "arrow";
+            Size = new Size(100, 100);
+            ResumeLayout(false);
+        }
 
+        #endregion
+
+        /// <summary>
+        /// 绘制箭头的点
+        /// </summary>
+        private Point p1 = new Point();
+        private Point p2 = new Point();
+        private Point p3 = new Point();
+        private Point p4 = new Point();
+        private Point p5 = new Point();
+        private Point p6 = new Point();
+        private Point p7 = new Point();
+
+        /// <summary>
+        /// 控制箭头绘制的颜色
+        /// </summary>
+        private Color _paint_color;
+
+        /// <summary>
+        /// 控制箭头的方向
+        /// </summary>
+        public enum Direction
+        {
+            Right,
+            Left,
+            Up,
+            Down
+        }
+
+        /// <summary>
+        /// 箭头绘制颜色
+        /// </summary>
+        public Color PaintColor
+        {
+            get
+            {
+                return _paint_color;
+            }
+            set
+            {
+                _paint_color = value;
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// 箭头方向
+        /// </summary>
         public Direction ArrowDirection { get; set; } = Direction.Right;
 
+        /// <summary>
+        /// 绘制箭头
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             int half_height = this.Height / 2;
@@ -70,7 +122,7 @@ namespace WinFormsControlLibrary1
                     p2.X = half_height;
                     p2.Y = this.Height;
                     p3.X = p2.X;
-                    p3.Y = half_height +  half_height / 2;
+                    p3.Y = half_height + half_height / 2;
                     p4.X = Width;
                     p4.Y = p3.Y;
                     p5.X = Width;
@@ -113,7 +165,7 @@ namespace WinFormsControlLibrary1
                     p7.Y = p6.Y;
                     break;
             }
-           
+
             GraphicsPath path = new GraphicsPath();
             path.AddLine(p1, p2);
             path.AddLine(p2, p3);
@@ -128,26 +180,5 @@ namespace WinFormsControlLibrary1
 
         }
 
-
-        #region Component Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            SuspendLayout();
-            // 
-            // arrow
-            // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Name = "arrow";
-            Size = new Size(100, 100);
-            ResumeLayout(false);
-        }
-
-        #endregion
     }
 }

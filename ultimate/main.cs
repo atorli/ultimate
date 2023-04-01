@@ -9,12 +9,39 @@ namespace ProjectA
 {
     public partial class main : Form
     {
+        /// <summary>
+        /// opc服务器对象，必须在创建对象的时候创建它
+        /// </summary>
         private OPCServer _server;
+
+        /// <summary>
+        /// opc组群对象，用于包含多组，可以为null
+        /// </summary>
         private OPCGroups? _groups;
+
+        /// <summary>
+        /// opc单组对象，用于包含items,可以为null
+        /// </summary>
         private OPCGroup? _group;
+
+        /// <summary>
+        /// opc地址项组对象，用于包含单个地址项
+        /// </summary>
         private OPCItems? _items;
+
+        /// <summary>
+        /// 配置对象
+        /// </summary>
         private IConfigurationRoot _root;
+
+        /// <summary>
+        /// 日志对象
+        /// </summary>
         private NLog.Logger _logger;
+
+        /// <summary>
+        /// 用于保存导入的项数据
+        /// </summary>
         private DataTable? _dt;
 
         public main(IConfigurationRoot root, NLog.Logger logger)
@@ -23,18 +50,6 @@ namespace ProjectA
             _root = root;
             _logger = logger;
             _server = new OPCServer();
-        }
-
-        private void Group_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
-        {
-            for (int i = 1; i <= NumItems; i++)
-            {
-                object? idx = ClientHandles.GetValue(i);
-                if (idx is not null)
-                {
-                    this.opc_item_table.Rows[(int)idx].Cells[2].Value = ItemValues.GetValue(i);
-                }
-            }
         }
 
         /// <summary>
@@ -60,7 +75,17 @@ namespace ProjectA
 
                     OPCGroup group = _groups.Add("group1");
                     group.IsSubscribed = true;
-                    group.DataChange += Group_DataChange;
+                    group.DataChange += (int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps) =>
+                    {
+                        for (int i = 1; i <= NumItems; i++)
+                        {
+                            object? idx = ClientHandles.GetValue(i);
+                            if (idx is not null)
+                            {
+                                this.opc_item_table.Rows[(int)idx].Cells[2].Value = ItemValues.GetValue(i);
+                            }
+                        }
+                    };
 
                     _items = group.OPCItems;
                 }
@@ -77,6 +102,11 @@ namespace ProjectA
             }
         }
 
+        /// <summary>
+        /// 导入csv格式的地址文件处理函数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void import_csv_file_Click(object sender, EventArgs e)
         {
             try
@@ -105,9 +135,21 @@ namespace ProjectA
             }
         }
 
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        /// <summary>
+        /// 闪烁定时器，控件箭头的闪烁
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void blink_timer_Tick(object sender, EventArgs e)
         {
-
+            //if (this.arrow1.PaintColor == Color.Transparent)
+            //{
+            //    this.arrow1.PaintColor = Color.Green;
+            //}
+            //else if (this.arrow1.PaintColor == Color.Green)
+            //{
+            //    arrow1.PaintColor = Color.Transparent;
+            //}
         }
     }
 }

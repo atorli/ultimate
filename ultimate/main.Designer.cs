@@ -28,33 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            statusStrip1 = new StatusStrip();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            foot_status = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
             opc_item_table = new DataGridView();
             item_addr = new DataGridViewTextBoxColumn();
             desc = new DataGridViewTextBoxColumn();
             value = new DataGridViewTextBoxColumn();
-            splitContainer1 = new SplitContainer();
+            vertical_spliter = new SplitContainer();
+            arrow1 = new WinFormsControlLibrary1.Arrow();
             file_menu = new ToolStripMenuItem();
             import_csv_file = new ToolStripMenuItem();
-            menuStrip1 = new MenuStrip();
-            statusStrip1.SuspendLayout();
+            menu = new MenuStrip();
+            blink_timer = new System.Windows.Forms.Timer(components);
+            foot_status.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)opc_item_table).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)vertical_spliter).BeginInit();
+            vertical_spliter.Panel1.SuspendLayout();
+            vertical_spliter.Panel2.SuspendLayout();
+            vertical_spliter.SuspendLayout();
+            menu.SuspendLayout();
             SuspendLayout();
             // 
-            // statusStrip1
+            // foot_status
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { server_connect_stratus });
-            statusStrip1.Location = new Point(0, 739);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(1184, 22);
-            statusStrip1.TabIndex = 1;
-            statusStrip1.Text = "statusStrip1";
+            foot_status.Items.AddRange(new ToolStripItem[] { server_connect_stratus });
+            foot_status.Location = new Point(0, 739);
+            foot_status.Name = "foot_status";
+            foot_status.Size = new Size(1184, 22);
+            foot_status.TabIndex = 1;
+            foot_status.Text = "statusStrip1";
             // 
             // server_connect_stratus
             // 
@@ -67,9 +71,9 @@
             // opc_item_table
             // 
             opc_item_table.AllowUserToAddRows = false;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.ForeColor = Color.Black;
-            opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             opc_item_table.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             opc_item_table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             opc_item_table.Columns.AddRange(new DataGridViewColumn[] { item_addr, desc, value });
@@ -103,22 +107,31 @@
             value.Name = "value";
             value.ReadOnly = true;
             // 
-            // splitContainer1
+            // vertical_spliter
             // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 28);
-            splitContainer1.Name = "splitContainer1";
+            vertical_spliter.Dock = DockStyle.Fill;
+            vertical_spliter.Location = new Point(0, 28);
+            vertical_spliter.Name = "vertical_spliter";
             // 
-            // splitContainer1.Panel1
+            // vertical_spliter.Panel1
             // 
-            splitContainer1.Panel1.Paint += splitContainer1_Panel1_Paint;
+            vertical_spliter.Panel1.Controls.Add(arrow1);
             // 
-            // splitContainer1.Panel2
+            // vertical_spliter.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(opc_item_table);
-            splitContainer1.Size = new Size(1184, 711);
-            splitContainer1.SplitterDistance = 600;
-            splitContainer1.TabIndex = 4;
+            vertical_spliter.Panel2.Controls.Add(opc_item_table);
+            vertical_spliter.Size = new Size(1184, 711);
+            vertical_spliter.SplitterDistance = 600;
+            vertical_spliter.TabIndex = 4;
+            // 
+            // arrow1
+            // 
+            arrow1.ArrowDirection = WinFormsControlLibrary1.Arrow.Direction.Right;
+            arrow1.Location = new Point(213, 133);
+            arrow1.Name = "arrow1";
+            arrow1.PaintColor = Color.Transparent;
+            arrow1.Size = new Size(158, 100);
+            arrow1.TabIndex = 0;
             // 
             // file_menu
             // 
@@ -139,50 +152,59 @@
             import_csv_file.Text = "导入地址文件(F1)";
             import_csv_file.Click += import_csv_file_Click;
             // 
-            // menuStrip1
+            // menu
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { file_menu });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1184, 28);
-            menuStrip1.TabIndex = 2;
-            menuStrip1.Text = "menuStrip1";
+            menu.Items.AddRange(new ToolStripItem[] { file_menu });
+            menu.Location = new Point(0, 0);
+            menu.Name = "menu";
+            menu.Size = new Size(1184, 28);
+            menu.TabIndex = 2;
+            menu.Text = "menuStrip1";
+            // 
+            // blink_timer
+            // 
+            blink_timer.Enabled = true;
+            blink_timer.Interval = 400;
+            blink_timer.Tick += blink_timer_Tick;
             // 
             // main
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1184, 761);
-            Controls.Add(splitContainer1);
-            Controls.Add(statusStrip1);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            Controls.Add(vertical_spliter);
+            Controls.Add(foot_status);
+            Controls.Add(menu);
+            MainMenuStrip = menu;
             Name = "main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ultimate";
             Shown += main_Shown;
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
+            foot_status.ResumeLayout(false);
+            foot_status.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)opc_item_table).EndInit();
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            vertical_spliter.Panel1.ResumeLayout(false);
+            vertical_spliter.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)vertical_spliter).EndInit();
+            vertical_spliter.ResumeLayout(false);
+            menu.ResumeLayout(false);
+            menu.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private StatusStrip statusStrip1;
+        private StatusStrip foot_status;
         private ToolStripStatusLabel server_connect_stratus;
         private DataGridView opc_item_table;
-        private SplitContainer splitContainer1;
+        private SplitContainer vertical_spliter;
         private DataGridViewTextBoxColumn item_addr;
         private DataGridViewTextBoxColumn desc;
         private DataGridViewTextBoxColumn value;
         private ToolStripMenuItem file_menu;
         private ToolStripMenuItem import_csv_file;
-        private MenuStrip menuStrip1;
+        private MenuStrip menu;
+        private System.Windows.Forms.Timer blink_timer;
+        private WinFormsControlLibrary1.Arrow arrow1;
     }
 }
