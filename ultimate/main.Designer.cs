@@ -34,14 +34,16 @@
             blink_timer = new System.Windows.Forms.Timer(components);
             picture_box = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            info_display = new ListBox();
+            dataGridView1 = new DataGridView();
             foot_status.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picture_box).BeginInit();
             tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // foot_status
             // 
+            foot_status.GripMargin = new Padding(0);
             foot_status.Items.AddRange(new ToolStripItem[] { server_connect_stratus });
             foot_status.Location = new Point(0, 739);
             foot_status.Name = "foot_status";
@@ -79,7 +81,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
             tableLayoutPanel1.Controls.Add(picture_box, 0, 0);
-            tableLayoutPanel1.Controls.Add(info_display, 1, 0);
+            tableLayoutPanel1.Controls.Add(dataGridView1, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Margin = new Padding(0);
@@ -89,16 +91,17 @@
             tableLayoutPanel1.Size = new Size(1184, 739);
             tableLayoutPanel1.TabIndex = 4;
             // 
-            // info_display
+            // dataGridView1
             // 
-            info_display.Dock = DockStyle.Fill;
-            info_display.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            info_display.FormattingEnabled = true;
-            info_display.ItemHeight = 27;
-            info_display.Location = new Point(772, 3);
-            info_display.Name = "info_display";
-            info_display.Size = new Size(409, 733);
-            info_display.TabIndex = 4;
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(769, 0);
+            dataGridView1.Margin = new Padding(0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(415, 739);
+            dataGridView1.TabIndex = 4;
             // 
             // main
             // 
@@ -114,6 +117,7 @@
             foot_status.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picture_box).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -124,6 +128,6 @@
         private System.Windows.Forms.Timer blink_timer;
         private PictureBox picture_box;
         private TableLayoutPanel tableLayoutPanel1;
-        private ListBox info_display;
+        private DataGridView dataGridView1;
     }
 }
