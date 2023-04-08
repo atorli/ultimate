@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using NLog;
 using project_a.modules.file_parse;
 using System.Data;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace ProjectA
 {
@@ -82,12 +83,32 @@ namespace ProjectA
                             object? idx = ClientHandles.GetValue(i);
                             if (idx is not null)
                             {
-                                this.opc_item_table.Rows[(int)idx].Cells[2].Value = ItemValues.GetValue(i);
+                                Object? values = ItemValues.GetValue(i);
+                                if (values as Byte[] != null)
+                                {
+                                    foreach (var item in (Byte[])values)
+                                    {
+                                        _logger.Info($"value is {(Char)item}");
+                                    }
+                                }
+                                //this.opc_item_table.Rows[(int)idx].Cells[2].Value = ItemValues.GetValue(i);
                             }
                         }
                     };
 
                     _items = group.OPCItems;
+
+                    //解析地址文件，加载地址
+                    int idx = 0;
+                    _dt = csv_parse.parse(Path.Join("settings", "item_address.csv"));
+                    foreach (DataRow row in _dt.Rows)
+                    {
+                        OPCItem item = _items.AddItem(row[0].ToString(), idx);
+                        //this.opc_item_table.Rows.Add(row[0].ToString(), row[1].ToString(), 0);
+                        idx++;
+                        //Byte[] bytes = { 1, 2, 3, 4, 5, 6, 7, 8 };
+                        //item.Write(bytes);
+                    }
                 }
                 else
                 {
@@ -99,39 +120,6 @@ namespace ProjectA
             {
                 //连接失败
                 _logger.Error($"连接KepServer失败，{ex.Message}.请检查Kepserver是否正常运行以及配置文件中的服务器名称是否正确!");
-            }
-        }
-
-        /// <summary>
-        /// 导入csv格式的地址文件处理函数
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void import_csv_file_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "csv文件(*.csv)|*.csv";
-
-                int idx = 0;
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (_items is not null)
-                    {
-                        _dt = csv_parse.parse(dialog.FileName);
-                        foreach (DataRow row in _dt.Rows)
-                        {
-                            _items.AddItem(row[0].ToString(), idx);
-                            this.opc_item_table.Rows.Add(row[0].ToString(), row[1].ToString(), 0);
-                            idx++;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error($"处理导入的地址文件失败，失败信息:{ex.Message}");
             }
         }
 
