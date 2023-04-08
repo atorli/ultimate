@@ -5,6 +5,8 @@ using NLog;
 using project_a.modules.file_parse;
 using System.Data;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using ultimate;
+using System.Text;
 
 namespace ProjectA
 {
@@ -45,12 +47,68 @@ namespace ProjectA
         /// </summary>
         private DataTable? _dt;
 
+
+        private Dictionary<int, Image> images = new Dictionary<int, Image>();
+
+
+        /// <summary>
+        /// opc地址前缀
+        /// </summary>
+        private string address_prefix = string.Empty;
+
+
         public main(IConfigurationRoot root, NLog.Logger logger)
         {
             InitializeComponent();
             _root = root;
             _logger = logger;
             _server = new OPCServer();
+
+            address_prefix = $"{_root["channel"]}.{_root["device"]}.";
+
+            images.Add(1, Image.FromFile(Path.Combine("pictures", $"{1}.png")));
+            images.Add(2, Image.FromFile(Path.Combine("pictures", $"{2}.png")));
+            images.Add(3, Image.FromFile(Path.Combine("pictures", $"{3}.png")));
+            images.Add(4, Image.FromFile(Path.Combine("pictures", $"{4}.png")));
+        }
+
+
+        private void data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+            for (int i = 1; i <= NumItems; i++)
+            {
+                object? _clientHandles = ClientHandles.GetValue(i);
+                if (_clientHandles is not null)
+                {
+                    int clientHandles = (int)_clientHandles;
+
+                    if (clientHandles == OPCAddress.load_id.ClientHandle)
+                    {
+                        Object? value = ItemValues.GetValue(i);
+                        if (value is not null)
+                        {
+                            Int16 pic_id = (Int16)value;
+                            if (images.ContainsKey(pic_id))
+                            {
+                                picture_box.Image = images[pic_id];
+                            }
+                        }
+                    }
+                    else if (clientHandles == OPCAddress.product_name.ClientHandle)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        Object? value = ItemValues.GetValue(i);
+                        if (value as Byte[] != null)
+                        {
+                            foreach (var c in (Byte[])value)
+                            {
+                                sb.Append((Char)c);
+                            }
+                        }
+                        this.Text = sb.ToString();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -75,40 +133,14 @@ namespace ProjectA
                     _groups.DefaultGroupUpdateRate = 250;
 
                     OPCGroup group = _groups.Add("group1");
+
                     group.IsSubscribed = true;
-                    group.DataChange += (int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps) =>
-                    {
-                        for (int i = 1; i <= NumItems; i++)
-                        {
-                            object? idx = ClientHandles.GetValue(i);
-                            if (idx is not null)
-                            {
-                                Object? values = ItemValues.GetValue(i);
-                                if (values as Byte[] != null)
-                                {
-                                    foreach (var item in (Byte[])values)
-                                    {
-                                        _logger.Info($"value is {(Char)item}");
-                                    }
-                                }
-                                //this.opc_item_table.Rows[(int)idx].Cells[2].Value = ItemValues.GetValue(i);
-                            }
-                        }
-                    };
+                    group.DataChange += data_change;
 
                     _items = group.OPCItems;
 
-                    //解析地址文件，加载地址
-                    int idx = 0;
-                    _dt = csv_parse.parse(Path.Join("settings", "item_address.csv"));
-                    foreach (DataRow row in _dt.Rows)
-                    {
-                        OPCItem item = _items.AddItem(row[0].ToString(), idx);
-                        //this.opc_item_table.Rows.Add(row[0].ToString(), row[1].ToString(), 0);
-                        idx++;
-                        //Byte[] bytes = { 1, 2, 3, 4, 5, 6, 7, 8 };
-                        //item.Write(bytes);
-                    }
+                    _items.AddItem($"{address_prefix}{OPCAddress.load_id.Name}", OPCAddress.load_id.ClientHandle);
+                    _items.AddItem($"{address_prefix}{OPCAddress.product_name.Name}", OPCAddress.product_name.ClientHandle);
                 }
                 else
                 {

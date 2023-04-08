@@ -29,23 +29,15 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             foot_status = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
-            opc_item_table = new DataGridView();
-            item_addr = new DataGridViewTextBoxColumn();
-            desc = new DataGridViewTextBoxColumn();
-            value = new DataGridViewTextBoxColumn();
-            vertical_spliter = new SplitContainer();
-            arrow1 = new WinFormsControlLibrary1.Arrow();
-            menu = new MenuStrip();
             blink_timer = new System.Windows.Forms.Timer(components);
+            picture_box = new PictureBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            info_display = new ListBox();
             foot_status.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)opc_item_table).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)vertical_spliter).BeginInit();
-            vertical_spliter.Panel1.SuspendLayout();
-            vertical_spliter.Panel2.SuspendLayout();
-            vertical_spliter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picture_box).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // foot_status
@@ -65,105 +57,63 @@
             server_connect_stratus.Size = new Size(140, 17);
             server_connect_stratus.Text = "服务器连接状态：未连接";
             // 
-            // opc_item_table
-            // 
-            opc_item_table.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            opc_item_table.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            opc_item_table.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            opc_item_table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            opc_item_table.Columns.AddRange(new DataGridViewColumn[] { item_addr, desc, value });
-            opc_item_table.Dock = DockStyle.Fill;
-            opc_item_table.Location = new Point(0, 0);
-            opc_item_table.Name = "opc_item_table";
-            opc_item_table.ReadOnly = true;
-            opc_item_table.RowHeadersVisible = false;
-            opc_item_table.RowTemplate.Height = 25;
-            opc_item_table.Size = new Size(580, 715);
-            opc_item_table.TabIndex = 3;
-            // 
-            // item_addr
-            // 
-            item_addr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            item_addr.HeaderText = "地址";
-            item_addr.Name = "item_addr";
-            item_addr.ReadOnly = true;
-            // 
-            // desc
-            // 
-            desc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            desc.HeaderText = "描述";
-            desc.Name = "desc";
-            desc.ReadOnly = true;
-            // 
-            // value
-            // 
-            value.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            value.HeaderText = "值";
-            value.Name = "value";
-            value.ReadOnly = true;
-            // 
-            // vertical_spliter
-            // 
-            vertical_spliter.Dock = DockStyle.Fill;
-            vertical_spliter.Location = new Point(0, 24);
-            vertical_spliter.Name = "vertical_spliter";
-            // 
-            // vertical_spliter.Panel1
-            // 
-            vertical_spliter.Panel1.Controls.Add(arrow1);
-            // 
-            // vertical_spliter.Panel2
-            // 
-            vertical_spliter.Panel2.Controls.Add(opc_item_table);
-            vertical_spliter.Size = new Size(1184, 715);
-            vertical_spliter.SplitterDistance = 600;
-            vertical_spliter.TabIndex = 4;
-            // 
-            // arrow1
-            // 
-            arrow1.ArrowDirection = WinFormsControlLibrary1.Arrow.Direction.Right;
-            arrow1.Location = new Point(213, 133);
-            arrow1.Name = "arrow1";
-            arrow1.PaintColor = Color.Transparent;
-            arrow1.Size = new Size(158, 100);
-            arrow1.TabIndex = 0;
-            // 
-            // menu
-            // 
-            menu.Location = new Point(0, 0);
-            menu.Name = "menu";
-            menu.Size = new Size(1184, 24);
-            menu.TabIndex = 2;
-            menu.Text = "menuStrip1";
-            // 
             // blink_timer
             // 
-            blink_timer.Enabled = true;
             blink_timer.Interval = 400;
             blink_timer.Tick += blink_timer_Tick;
+            // 
+            // picture_box
+            // 
+            picture_box.Dock = DockStyle.Fill;
+            picture_box.Location = new Point(0, 0);
+            picture_box.Margin = new Padding(0);
+            picture_box.Name = "picture_box";
+            picture_box.Size = new Size(769, 739);
+            picture_box.SizeMode = PictureBoxSizeMode.Zoom;
+            picture_box.TabIndex = 3;
+            picture_box.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tableLayoutPanel1.Controls.Add(picture_box, 0, 0);
+            tableLayoutPanel1.Controls.Add(info_display, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Margin = new Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1184, 739);
+            tableLayoutPanel1.TabIndex = 4;
+            // 
+            // info_display
+            // 
+            info_display.Dock = DockStyle.Fill;
+            info_display.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            info_display.FormattingEnabled = true;
+            info_display.ItemHeight = 27;
+            info_display.Location = new Point(772, 3);
+            info_display.Name = "info_display";
+            info_display.Size = new Size(409, 733);
+            info_display.TabIndex = 4;
             // 
             // main
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1184, 761);
-            Controls.Add(vertical_spliter);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(foot_status);
-            Controls.Add(menu);
-            MainMenuStrip = menu;
             Name = "main";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ultimate";
             Shown += main_Shown;
             foot_status.ResumeLayout(false);
             foot_status.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)opc_item_table).EndInit();
-            vertical_spliter.Panel1.ResumeLayout(false);
-            vertical_spliter.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)vertical_spliter).EndInit();
-            vertical_spliter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picture_box).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -171,13 +121,9 @@
         #endregion
         private StatusStrip foot_status;
         private ToolStripStatusLabel server_connect_stratus;
-        private DataGridView opc_item_table;
-        private SplitContainer vertical_spliter;
-        private DataGridViewTextBoxColumn item_addr;
-        private DataGridViewTextBoxColumn desc;
-        private DataGridViewTextBoxColumn value;
-        private MenuStrip menu;
         private System.Windows.Forms.Timer blink_timer;
-        private WinFormsControlLibrary1.Arrow arrow1;
+        private PictureBox picture_box;
+        private TableLayoutPanel tableLayoutPanel1;
+        private ListBox info_display;
     }
 }
