@@ -1,4 +1,4 @@
-﻿namespace ProjectA
+﻿namespace ultimate
 {
     partial class main
     {
@@ -34,20 +34,24 @@
             blink_timer = new System.Windows.Forms.Timer(components);
             picture_box = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            dataGridView1 = new DataGridView();
+            info_display = new DataGridView();
+            datetime = new DataGridViewTextBoxColumn();
+            info = new DataGridViewTextBoxColumn();
             foot_status.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picture_box).BeginInit();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)info_display).BeginInit();
             SuspendLayout();
             // 
             // foot_status
             // 
             foot_status.GripMargin = new Padding(0);
+            foot_status.ImageScalingSize = new Size(20, 20);
             foot_status.Items.AddRange(new ToolStripItem[] { server_connect_stratus });
-            foot_status.Location = new Point(0, 739);
+            foot_status.Location = new Point(0, 869);
             foot_status.Name = "foot_status";
-            foot_status.Size = new Size(1184, 22);
+            foot_status.Padding = new Padding(1, 0, 18, 0);
+            foot_status.Size = new Size(1522, 26);
             foot_status.TabIndex = 1;
             foot_status.Text = "statusStrip1";
             // 
@@ -56,7 +60,7 @@
             server_connect_stratus.DisplayStyle = ToolStripItemDisplayStyle.Text;
             server_connect_stratus.ForeColor = Color.Red;
             server_connect_stratus.Name = "server_connect_stratus";
-            server_connect_stratus.Size = new Size(140, 17);
+            server_connect_stratus.Size = new Size(174, 20);
             server_connect_stratus.Text = "服务器连接状态：未连接";
             // 
             // blink_timer
@@ -70,7 +74,7 @@
             picture_box.Location = new Point(0, 0);
             picture_box.Margin = new Padding(0);
             picture_box.Name = "picture_box";
-            picture_box.Size = new Size(769, 739);
+            picture_box.Size = new Size(989, 869);
             picture_box.SizeMode = PictureBoxSizeMode.Zoom;
             picture_box.TabIndex = 3;
             picture_box.TabStop = false;
@@ -81,35 +85,58 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
             tableLayoutPanel1.Controls.Add(picture_box, 0, 0);
-            tableLayoutPanel1.Controls.Add(dataGridView1, 1, 0);
+            tableLayoutPanel1.Controls.Add(info_display, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Margin = new Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1184, 739);
+            tableLayoutPanel1.Size = new Size(1522, 869);
             tableLayoutPanel1.TabIndex = 4;
             // 
-            // dataGridView1
+            // info_display
             // 
-            dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(769, 0);
-            dataGridView1.Margin = new Padding(0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(415, 739);
-            dataGridView1.TabIndex = 4;
+            info_display.AllowUserToAddRows = false;
+            info_display.BorderStyle = BorderStyle.None;
+            info_display.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            info_display.Columns.AddRange(new DataGridViewColumn[] { datetime, info });
+            info_display.Dock = DockStyle.Fill;
+            info_display.Location = new Point(989, 0);
+            info_display.Margin = new Padding(0);
+            info_display.Name = "info_display";
+            info_display.ReadOnly = true;
+            info_display.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            info_display.RowHeadersVisible = false;
+            info_display.RowHeadersWidth = 51;
+            info_display.RowTemplate.Height = 25;
+            info_display.Size = new Size(533, 869);
+            info_display.TabIndex = 4;
+            // 
+            // datetime
+            // 
+            datetime.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            datetime.HeaderText = "时间";
+            datetime.MinimumWidth = 6;
+            datetime.Name = "datetime";
+            datetime.ReadOnly = true;
+            // 
+            // info
+            // 
+            info.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            info.HeaderText = "信息";
+            info.MinimumWidth = 6;
+            info.Name = "info";
+            info.ReadOnly = true;
             // 
             // main
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1184, 761);
+            ClientSize = new Size(1522, 895);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(foot_status);
+            Margin = new Padding(4);
             Name = "main";
             StartPosition = FormStartPosition.CenterScreen;
             Shown += main_Shown;
@@ -117,7 +144,7 @@
             foot_status.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picture_box).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)info_display).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -128,6 +155,8 @@
         private System.Windows.Forms.Timer blink_timer;
         private PictureBox picture_box;
         private TableLayoutPanel tableLayoutPanel1;
-        private DataGridView dataGridView1;
+        private DataGridView info_display;
+        private DataGridViewTextBoxColumn datetime;
+        private DataGridViewTextBoxColumn info;
     }
 }

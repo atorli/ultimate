@@ -1,70 +1,72 @@
 using OPCAutomation;
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using NLog;
-using project_a.modules.file_parse;
-using System.Data;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using ultimate;
 using System.Text;
 
-namespace ProjectA
+namespace ultimate
 {
     public partial class main : Form
     {
         /// <summary>
         /// opc服务器对象，必须在创建对象的时候创建它
         /// </summary>
-        private OPCServer _server;
+        public OPCServer Server { get; set; }
 
         /// <summary>
         /// opc组群对象，用于包含多组，可以为null
         /// </summary>
-        private OPCGroups? _groups;
+        public OPCGroups? Groups { get; set; }
 
         /// <summary>
-        /// opc单组对象，用于包含items,可以为null
+        /// 元数据组，包括加载模式,产品名称等
         /// </summary>
-        private OPCGroup? _group;
+        public OPCGroup? MetaGroup { get; set; }
 
         /// <summary>
-        /// opc地址项组对象，用于包含单个地址项
+        /// 元数据组项集合
         /// </summary>
-        private OPCItems? _items;
+        public OPCItems? MetaGroupItems { get; set; }
+
+        /// <summary>
+        /// 流程组
+        /// </summary>
+        public OPCGroup? StepGroup { get; set; }
+
+        /// <summary>
+        /// 流程组项集合
+        /// </summary>
+        public OPCItems? StepGroupItems { get; set; }
 
         /// <summary>
         /// 配置对象
         /// </summary>
-        private IConfigurationRoot _root;
+        public IConfigurationRoot Config { get; set; }
 
         /// <summary>
         /// 日志对象
         /// </summary>
-        private NLog.Logger _logger;
-
-        /// <summary>
-        /// 用于保存导入的项数据
-        /// </summary>
-        private DataTable? _dt;
-
+        public Logger Logger { get; set; }
 
         private Dictionary<int, Image> images = new Dictionary<int, Image>();
-
 
         /// <summary>
         /// opc地址前缀
         /// </summary>
-        private string address_prefix = string.Empty;
+        public string AddressPrefix = string.Empty;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="logger"></param>
         public main(IConfigurationRoot root, NLog.Logger logger)
         {
             InitializeComponent();
-            _root = root;
-            _logger = logger;
-            _server = new OPCServer();
+            Config = root;
+            Logger = logger;
+            Server = new OPCServer();
 
-            address_prefix = $"{_root["channel"]}.{_root["device"]}.";
+            AddressPrefix = $"{Config["channel"]}.{Config["device"]}.";
 
             images.Add(1, Image.FromFile(Path.Combine("pictures", $"{1}.png")));
             images.Add(2, Image.FromFile(Path.Combine("pictures", $"{2}.png")));
@@ -72,18 +74,26 @@ namespace ProjectA
             images.Add(4, Image.FromFile(Path.Combine("pictures", $"{4}.png")));
         }
 
-
-        private void data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        /// <summary>
+        /// 元数据组数据变化事件处理程序
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
+        private void meta_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
             for (int i = 1; i <= NumItems; i++)
             {
-                object? _clientHandles = ClientHandles.GetValue(i);
-                if (_clientHandles is not null)
+                object? _clientHandle = ClientHandles.GetValue(i);
+                if (_clientHandle != null)
                 {
-                    int clientHandles = (int)_clientHandles;
-
-                    if (clientHandles == OPCAddress.load_id.ClientHandle)
+                    int clientHandle = (int)_clientHandle;
+                    if (clientHandle == OPCAddress.load_id.ClientHandle)
                     {
+                        //加载模式
                         Object? value = ItemValues.GetValue(i);
                         if (value is not null)
                         {
@@ -94,19 +104,83 @@ namespace ProjectA
                             }
                         }
                     }
-                    else if (clientHandles == OPCAddress.product_name.ClientHandle)
+                    else if (clientHandle == OPCAddress.product_name.ClientHandle)
                     {
-                        StringBuilder sb = new StringBuilder();
+                        //产品名称
                         Object? value = ItemValues.GetValue(i);
                         if (value as Byte[] != null)
                         {
+                            StringBuilder sb = new StringBuilder();
                             foreach (var c in (Byte[])value)
                             {
                                 sb.Append((Char)c);
                             }
+                            this.Text = sb.ToString();
                         }
-                        this.Text = sb.ToString();
+                        else
+                        {
+                            this.Text = string.Empty;
+                        }
                     }
+                    else if (clientHandle == OPCAddress.motor_current.ClientHandle)
+                    {
+                        //电流
+                    }
+                    else if(clientHandle == OPCAddress.time.ClientHandle)
+                    {
+                        //时间
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 流程组数据变化事件处理程序
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
+        private void step_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+            
+            if(info_display.Rows.Count == 500 )
+            {
+                info_display.Rows.Clear();
+            }
+
+            object? value = ItemValues.GetValue(1);
+            if(value != null)
+            {
+                Int16 step = (Int16)value;
+
+                switch (step)
+                {
+                    case 0:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "等待设备启动"); 
+                            break;
+                        }
+                    case 10:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "上下压紧气缸工作");
+                            break;
+                        }
+                    case 20:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "检测装车螺丝与缓冲块");
+                            break;
+                        }
+                    case 30:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "电机高低配选择");
+                            break;
+                        }
+
+                    default:
+                        break;
                 }
             }
         }
@@ -121,37 +195,49 @@ namespace ProjectA
         {
             try
             {
-                _server.Connect(_root["server_name"]);
-                if (_server.ServerState == (int)OPCServerState.OPCRunning)
+                Server.Connect(Config["server_name"]);
+                if (Server.ServerState == (int)OPCServerState.OPCRunning)
                 {
                     this.server_connect_stratus.Text = "服务器连接状态：已连接";
                     this.server_connect_stratus.ForeColor = Color.Green;
 
-                    _groups = _server.OPCGroups;
-                    _groups.DefaultGroupDeadband = 0;
-                    _groups.DefaultGroupIsActive = true;
-                    _groups.DefaultGroupUpdateRate = 250;
+                    Groups = Server.OPCGroups;
+                    Groups.DefaultGroupDeadband = 0;
+                    Groups.DefaultGroupIsActive = true;
+                    Groups.DefaultGroupUpdateRate = 250;
 
-                    OPCGroup group = _groups.Add("group1");
+                    //元数据组
+                    MetaGroup = Groups.Add("meta_group");
+                    MetaGroup.IsSubscribed = true;
+                    MetaGroup.DataChange += meta_group_data_change;
+                    MetaGroupItems = MetaGroup.OPCItems;
+                    //加载模式
+                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.load_id.Name}", OPCAddress.load_id.ClientHandle);
+                    //产品名称
+                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.product_name.Name}", OPCAddress.product_name.ClientHandle);
+                    //当前电流
+                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.motor_current.Name}", OPCAddress.motor_current.ClientHandle);
+                    //当前时间
+                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.time.Name}", OPCAddress.time.ClientHandle);
 
-                    group.IsSubscribed = true;
-                    group.DataChange += data_change;
-
-                    _items = group.OPCItems;
-
-                    _items.AddItem($"{address_prefix}{OPCAddress.load_id.Name}", OPCAddress.load_id.ClientHandle);
-                    _items.AddItem($"{address_prefix}{OPCAddress.product_name.Name}", OPCAddress.product_name.ClientHandle);
+                    //流程组
+                    StepGroup = Groups.Add("step_group");
+                    StepGroup.IsSubscribed = true;
+                    StepGroup.DataChange += step_group_data_change;
+                    StepGroupItems = StepGroup.OPCItems;
+                    //状态流转变量
+                    StepGroupItems.AddItem($"{AddressPrefix}{OPCAddress.step.Name}", OPCAddress.step.ClientHandle);
                 }
                 else
                 {
                     //连接失败
-                    _logger.Error($"连接KepServer失败,服务端的状态为:{Enum.GetName<OPCServerState>((OPCServerState)_server.ServerState)}");
+                    Logger.Error($"连接KepServer失败,服务端的状态为:{Enum.GetName<OPCServerState>((OPCServerState)Server.ServerState)}");
                 }
             }
             catch (Exception ex)
             {
                 //连接失败
-                _logger.Error($"连接KepServer失败，{ex.Message}.请检查Kepserver是否正常运行以及配置文件中的服务器名称是否正确!");
+                Logger.Error($"连接KepServer失败，{ex.Message}.请检查Kepserver是否正常运行以及配置文件中的服务器名称是否正确!");
             }
         }
 

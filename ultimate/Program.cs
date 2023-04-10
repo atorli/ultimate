@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
-using NLog;
 
-namespace ProjectA
+namespace ultimate
 {
     internal static class Program
     {
