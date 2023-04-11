@@ -32,14 +32,12 @@
             foot_status = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
             blink_timer = new System.Windows.Forms.Timer(components);
-            picture_box = new PictureBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            main_layout = new TableLayoutPanel();
             info_display = new DataGridView();
             datetime = new DataGridViewTextBoxColumn();
             info = new DataGridViewTextBoxColumn();
             foot_status.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picture_box).BeginInit();
-            tableLayoutPanel1.SuspendLayout();
+            main_layout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)info_display).BeginInit();
             SuspendLayout();
             // 
@@ -68,32 +66,20 @@
             blink_timer.Interval = 400;
             blink_timer.Tick += blink_timer_Tick;
             // 
-            // picture_box
+            // main_layout
             // 
-            picture_box.Dock = DockStyle.Fill;
-            picture_box.Location = new Point(0, 0);
-            picture_box.Margin = new Padding(0);
-            picture_box.Name = "picture_box";
-            picture_box.Size = new Size(989, 869);
-            picture_box.SizeMode = PictureBoxSizeMode.Zoom;
-            picture_box.TabIndex = 3;
-            picture_box.TabStop = false;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
-            tableLayoutPanel1.Controls.Add(picture_box, 0, 0);
-            tableLayoutPanel1.Controls.Add(info_display, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1522, 869);
-            tableLayoutPanel1.TabIndex = 4;
+            main_layout.ColumnCount = 2;
+            main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
+            main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            main_layout.Controls.Add(info_display, 1, 0);
+            main_layout.Dock = DockStyle.Fill;
+            main_layout.Location = new Point(0, 0);
+            main_layout.Margin = new Padding(0);
+            main_layout.Name = "main_layout";
+            main_layout.RowCount = 1;
+            main_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            main_layout.Size = new Size(1522, 869);
+            main_layout.TabIndex = 4;
             // 
             // info_display
             // 
@@ -134,7 +120,7 @@
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1522, 895);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(main_layout);
             Controls.Add(foot_status);
             Margin = new Padding(4);
             Name = "main";
@@ -142,8 +128,7 @@
             Shown += main_Shown;
             foot_status.ResumeLayout(false);
             foot_status.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picture_box).EndInit();
-            tableLayoutPanel1.ResumeLayout(false);
+            main_layout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)info_display).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -153,8 +138,7 @@
         private StatusStrip foot_status;
         private ToolStripStatusLabel server_connect_stratus;
         private System.Windows.Forms.Timer blink_timer;
-        private PictureBox picture_box;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel main_layout;
         private DataGridView info_display;
         private DataGridViewTextBoxColumn datetime;
         private DataGridViewTextBoxColumn info;

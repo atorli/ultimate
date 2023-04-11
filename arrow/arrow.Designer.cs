@@ -32,12 +32,14 @@ namespace WinFormsControlLibrary1
         {
             SuspendLayout();
             // 
-            // arrow
+            // Arrow
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Name = "arrow";
-            Size = new Size(100, 100);
+            BackColor = Color.Transparent;
+            Margin = new Padding(4, 4, 4, 4);
+            Name = "Arrow";
+            Size = new Size(129, 118);
             ResumeLayout(false);
         }
 

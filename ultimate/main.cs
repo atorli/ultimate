@@ -47,7 +47,10 @@ namespace ultimate
         /// </summary>
         public Logger Logger { get; set; }
 
-        private Dictionary<int, Image> images = new Dictionary<int, Image>();
+        /// <summary>
+        /// 模式对应的控件集合
+        /// </summary>
+        public Dictionary<int, Control> modes = new Dictionary<int, Control>();
 
         /// <summary>
         /// opc地址前缀
@@ -59,7 +62,7 @@ namespace ultimate
         /// </summary>
         /// <param name="root"></param>
         /// <param name="logger"></param>
-        public main(IConfigurationRoot root, NLog.Logger logger)
+        public main(IConfigurationRoot root, Logger logger)
         {
             InitializeComponent();
             Config = root;
@@ -68,10 +71,16 @@ namespace ultimate
 
             AddressPrefix = $"{Config["channel"]}.{Config["device"]}.";
 
-            images.Add(1, Image.FromFile(Path.Combine("pictures", $"{1}.png")));
-            images.Add(2, Image.FromFile(Path.Combine("pictures", $"{2}.png")));
-            images.Add(3, Image.FromFile(Path.Combine("pictures", $"{3}.png")));
-            images.Add(4, Image.FromFile(Path.Combine("pictures", $"{4}.png")));
+            modes.Add(1, new mode1());
+            modes.Add(2, new mode2());
+            modes.Add(3, new mode3());
+            modes.Add(4, new mode4());
+
+            foreach (var values in modes.Values)
+            {
+                values.Dock = DockStyle.Fill;
+            }
+
         }
 
         /// <summary>
@@ -91,17 +100,27 @@ namespace ultimate
                 if (_clientHandle != null)
                 {
                     int clientHandle = (int)_clientHandle;
+
                     if (clientHandle == OPCAddress.load_id.ClientHandle)
                     {
                         //加载模式
                         Object? value = ItemValues.GetValue(i);
-                        if (value is not null)
+
+                        if (value != null)
                         {
-                            Int16 pic_id = (Int16)value;
-                            if (images.ContainsKey(pic_id))
+                            Int16 mode_id = (Int16)value;
+                            if (modes.ContainsKey(mode_id))
                             {
-                                picture_box.Image = images[pic_id];
+                                this.main_layout.Controls.Add(modes[mode_id], 0, 0);
                             }
+                            else
+                            {
+                                Logger.Error($"错误的加载模式:{mode_id}");
+                            }
+                        }
+                        else
+                        {
+                            Logger.Error("获取加载模式异常，加载模式为空引用");
                         }
                     }
                     else if (clientHandle == OPCAddress.product_name.ClientHandle)
@@ -120,16 +139,21 @@ namespace ultimate
                         else
                         {
                             this.Text = string.Empty;
+                            Logger.Error("获取产品名称异常，产品名称为空引用");
                         }
                     }
                     else if (clientHandle == OPCAddress.motor_current.ClientHandle)
                     {
                         //电流
                     }
-                    else if(clientHandle == OPCAddress.time.ClientHandle)
+                    else if (clientHandle == OPCAddress.time.ClientHandle)
                     {
                         //时间
                     }
+                }
+                else
+                {
+                    Logger.Error("获取句柄异常，句柄项为空引用");
                 }
             }
         }
@@ -145,14 +169,14 @@ namespace ultimate
         /// <param name="TimeStamps"></param>
         private void step_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            
-            if(info_display.Rows.Count == 500 )
+
+            if (info_display.Rows.Count == 500)
             {
                 info_display.Rows.Clear();
             }
 
             object? value = ItemValues.GetValue(1);
-            if(value != null)
+            if (value != null)
             {
                 Int16 step = (Int16)value;
 
@@ -160,7 +184,7 @@ namespace ultimate
                 {
                     case 0:
                         {
-                            info_display.Rows.Add(DateTime.Now, "等待设备启动"); 
+                            info_display.Rows.Add(DateTime.Now, "等待设备启动");
                             break;
                         }
                     case 10:
@@ -179,9 +203,149 @@ namespace ultimate
                             break;
                         }
 
+                    case 40:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "滑块向下止点运行");
+                            break;
+                        }
+                    case 50:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "伺服电机带负载向最低点运行");
+                            break;
+                        }
+                    case 60:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
+                            break;
+                        }
+                    case 70:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
+                            break;
+                        }
+                    case 80:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
+                            break;
+                        }
+                    case 90:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
+                            break;
+                        }
+                    case 100:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
+                            break;
+                        }
+                    case 110:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
+                            break;
+                        }
+                    case 120:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
+                            break;
+                        }
+                    case 130:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "加载气缸工作");
+                            break;
+                        }
+                    case 140:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "滑块向上止点运行");
+                            break;
+                        }
+                    case 150:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "判断电机运行电流是否超差");
+                            break;
+                        }
+                    case 151:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "加载气缸回基本位");
+                            break;
+                        }
+                    case 160:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
+                            break;
+                        }
+                    case 170:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
+                            break;
+                        }
+                    case 180:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
+                            break;
+                        }
+                    case 190:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
+                            break;
+                        }
+                    case 200:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
+                            break;
+                        }
+                    case 210:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
+                            break;
+                        }
+                    case 220:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
+                            break;
+                        }
+                    case 230:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "交付气缸工作");
+                            break;
+                        }
+                    case 240:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "电机向交付位置运行，交付位置信号检测中");
+                            break;
+                        }
+                    case 260:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "交付位置确认");
+                            break;
+                        }
+                    case 270:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "交付气缸回基本位");
+                            break;
+                        }
+                    case 280:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "上下压紧气缸回基本位");
+                            break;
+                        }
+                    case 290:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "打印标签中");
+                            break;
+                        }
+                    case 300:
+                        {
+                            info_display.Rows.Add(DateTime.Now, "请取走门板");
+                            break;
+                        }
                     default:
+                        Logger.Error("未知流程步骤!");
                         break;
                 }
+            }
+            else
+            {
+                Logger.Error("获取流程状态异常，流程状态为空引用");
             }
         }
 
