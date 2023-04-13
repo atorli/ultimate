@@ -38,6 +38,16 @@ namespace ultimate
         public OPCItems? StepGroupItems { get; set; }
 
         /// <summary>
+        /// 警报组
+        /// </summary>
+        public OPCGroup? WarnGroup { get; set; }
+
+        /// <summary>
+        /// 警报组项集合
+        /// </summary>
+        public OPCItems? WarnGroupItems { get; set; }
+
+        /// <summary>
         /// 配置对象
         /// </summary>
         public IConfigurationRoot Config { get; set; }
@@ -80,7 +90,6 @@ namespace ultimate
             {
                 values.Dock = DockStyle.Fill;
             }
-
         }
 
         /// <summary>
@@ -101,7 +110,7 @@ namespace ultimate
                 {
                     int clientHandle = (int)_clientHandle;
 
-                    if (clientHandle == OPCAddress.load_id.ClientHandle)
+                    if (clientHandle == ultimate.MetaGroup.load_id.ClientHandle)
                     {
                         //加载模式
                         Object? value = ItemValues.GetValue(i);
@@ -123,7 +132,7 @@ namespace ultimate
                             Logger.Error("获取加载模式异常，加载模式为空引用");
                         }
                     }
-                    else if (clientHandle == OPCAddress.product_name.ClientHandle)
+                    else if (clientHandle == ultimate.MetaGroup.product_name.ClientHandle)
                     {
                         //产品名称
                         Object? value = ItemValues.GetValue(i);
@@ -142,11 +151,11 @@ namespace ultimate
                             Logger.Error("获取产品名称异常，产品名称为空引用");
                         }
                     }
-                    else if (clientHandle == OPCAddress.motor_current.ClientHandle)
+                    else if (clientHandle == ultimate.MetaGroup.motor_current.ClientHandle)
                     {
                         //电流
                     }
-                    else if (clientHandle == OPCAddress.time.ClientHandle)
+                    else if (clientHandle == ultimate.MetaGroup.time.ClientHandle)
                     {
                         //时间
                     }
@@ -350,6 +359,20 @@ namespace ultimate
         }
 
         /// <summary>
+        /// 警报组数据变化时间处理程序
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
+        private void warn_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+
+        }
+
+        /// <summary>
         /// 当主界面第一次显示时，开始连接服务器，并且开始做一些
         /// 监听数据的操作
         /// </summary>
@@ -376,13 +399,13 @@ namespace ultimate
                     MetaGroup.DataChange += meta_group_data_change;
                     MetaGroupItems = MetaGroup.OPCItems;
                     //加载模式
-                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.load_id.Name}", OPCAddress.load_id.ClientHandle);
+                    MetaGroupItems.AddItem($"{AddressPrefix}{ultimate.MetaGroup.load_id.Name}", ultimate.MetaGroup.load_id.ClientHandle);
                     //产品名称
-                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.product_name.Name}", OPCAddress.product_name.ClientHandle);
+                    MetaGroupItems.AddItem($"{AddressPrefix}{ultimate.MetaGroup.product_name.Name}", ultimate.MetaGroup.product_name.ClientHandle);
                     //当前电流
-                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.motor_current.Name}", OPCAddress.motor_current.ClientHandle);
+                    MetaGroupItems.AddItem($"{AddressPrefix}{ultimate.MetaGroup.motor_current.Name}", ultimate.MetaGroup.motor_current.ClientHandle);
                     //当前时间
-                    MetaGroupItems.AddItem($"{AddressPrefix}{OPCAddress.time.Name}", OPCAddress.time.ClientHandle);
+                    MetaGroupItems.AddItem($"{AddressPrefix}{ultimate.MetaGroup.time.Name}", ultimate.MetaGroup.time.ClientHandle);
 
                     //流程组
                     StepGroup = Groups.Add("step_group");
@@ -390,7 +413,18 @@ namespace ultimate
                     StepGroup.DataChange += step_group_data_change;
                     StepGroupItems = StepGroup.OPCItems;
                     //状态流转变量
-                    StepGroupItems.AddItem($"{AddressPrefix}{OPCAddress.step.Name}", OPCAddress.step.ClientHandle);
+                    StepGroupItems.AddItem($"{AddressPrefix}{ultimate.StepGroup.step.Name}", ultimate.StepGroup.step.ClientHandle);
+
+                    //警报组
+                    WarnGroup = Groups.Add("warn_group");
+                    WarnGroup.IsSubscribed = true;
+                    WarnGroup.DataChange += warn_group_data_change;
+                    WarnGroupItems = WarnGroup.OPCItems;
+                    //添加警报组项
+                    foreach(var item in ultimate.WarnGroup.items)
+                    {
+                        WarnGroupItems.AddItem($"{AddressPrefix}{item.Value.Name}", item.Key);
+                    }
                 }
                 else
                 {
