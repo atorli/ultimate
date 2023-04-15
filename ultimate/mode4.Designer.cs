@@ -38,7 +38,8 @@
             BackgroundImageLayout = ImageLayout.Zoom;
             DoubleBuffered = true;
             Name = "mode4";
-            Size = new Size(343, 449);
+            Size = new Size(750, 750);
+            SizeChanged += mode4_SizeChanged;
             ResumeLayout(false);
         }
 

@@ -63,6 +63,8 @@ namespace ultimate
         /// </summary>
         public Dictionary<int, Control> modes = new Dictionary<int, Control>();
 
+        private Control? current_control { get; set; } = null;
+
         /// <summary>
         /// opc地址前缀
         /// </summary>
@@ -121,7 +123,13 @@ namespace ultimate
                             Int16 mode_id = (Int16)value;
                             if (modes.ContainsKey(mode_id))
                             {
+                                if (current_control != null)
+                                {
+                                    this.main_layout.Controls.Remove(current_control);
+                                }
+
                                 this.main_layout.Controls.Add(modes[mode_id], 0, 0);
+                                this.current_control = modes[mode_id];
                             }
                             else
                             {
@@ -370,7 +378,7 @@ namespace ultimate
         /// <param name="TimeStamps"></param>
         private void warn_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            for (int i = 1;i <= NumItems;++i)
+            for (int i = 1; i <= NumItems; ++i)
             {
                 object? clienthandle_ = ClientHandles.GetValue(i);
                 if (clienthandle_ != null)
@@ -395,7 +403,7 @@ namespace ultimate
                         }
                         else if (clienthandle == ultimate.WarnGroup.x430_8.ClientHandle)
                         {
-                            for(int j =0;j < bool_arr.Length;++j)
+                            for (int j = 0; j < bool_arr.Length; ++j)
                             {
                                 if (bool_arr[j])
                                 {
@@ -585,7 +593,7 @@ namespace ultimate
             //    arrow1.PaintColor = Color.Transparent;
             //}
         }
-        
+
         /// <summary>
         /// 添加报警信息
         /// </summary>

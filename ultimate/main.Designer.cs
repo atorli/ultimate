@@ -73,6 +73,7 @@
             main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
             main_layout.Controls.Add(info_display, 1, 0);
             main_layout.Dock = DockStyle.Fill;
+            main_layout.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
             main_layout.Location = new Point(0, 0);
             main_layout.Margin = new Padding(0);
             main_layout.Name = "main_layout";
