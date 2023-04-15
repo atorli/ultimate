@@ -2,6 +2,7 @@ using OPCAutomation;
 using Microsoft.Extensions.Configuration;
 using NLog;
 using System.Text;
+using NLog.Fluent;
 
 namespace ultimate
 {
@@ -369,7 +370,132 @@ namespace ultimate
         /// <param name="TimeStamps"></param>
         private void warn_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
+            for (int i = 1;i <= NumItems;++i)
+            {
+                object? clienthandle_ = ClientHandles.GetValue(i);
+                if (clienthandle_ != null)
+                {
+                    int clienthandle = (int)(clienthandle_);
 
+                    object? value = ItemValues.GetValue(i);
+                    var bool_arr = value as bool[];
+
+                    if (bool_arr != null)
+                    {
+                        if (clienthandle == ultimate.WarnGroup.x428_3.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x428_3_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x428_3_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x430_8.ClientHandle)
+                        {
+                            for(int j =0;j < bool_arr.Length;++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x430_8_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x430_8_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x431_8.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x431_8_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x431_8_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x432_2.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x432_2_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x432_2_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x434_8.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x434_8_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x434_8_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x435_8.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x435_8_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x435_8_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x436_5.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x436_5_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x436_5_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x438_8.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x438_8_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x438_8_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else if (clienthandle == ultimate.WarnGroup.x439_3.ClientHandle)
+                        {
+                            for (int j = 0; j < bool_arr.Length; ++j)
+                            {
+                                if (bool_arr[j])
+                                {
+                                    add_warn_info(ultimate.WarnGroup.x439_3_warn_message[j]);
+                                    Logger.Warn($"工作报警：{ultimate.WarnGroup.x439_3_warn_message[j]}");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Logger.Error("处理警报异常，未知的警报源！");
+                        }
+                    }
+                    else
+                    {
+                        Logger.Error("获取警报信息错误，数据为空引用！");
+                    }
+                }
+                else
+                {
+                    Logger.Error("获取项句柄错误，句柄为空引用！");
+                }
+            }
         }
 
         /// <summary>
@@ -420,11 +546,15 @@ namespace ultimate
                     WarnGroup.IsSubscribed = true;
                     WarnGroup.DataChange += warn_group_data_change;
                     WarnGroupItems = WarnGroup.OPCItems;
-                    //添加警报组项
-                    foreach(var item in ultimate.WarnGroup.items)
-                    {
-                        WarnGroupItems.AddItem($"{AddressPrefix}{item.Value.Name}", item.Key);
-                    }
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x428_3.Name}", ultimate.WarnGroup.x428_3.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x430_8.Name}", ultimate.WarnGroup.x430_8.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x431_8.Name}", ultimate.WarnGroup.x431_8.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x432_2.Name}", ultimate.WarnGroup.x432_2.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x434_8.Name}", ultimate.WarnGroup.x434_8.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x435_8.Name}", ultimate.WarnGroup.x435_8.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x436_5.Name}", ultimate.WarnGroup.x436_5.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x438_8.Name}", ultimate.WarnGroup.x438_8.ClientHandle);
+                    WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x439_3.Name}", ultimate.WarnGroup.x439_3.ClientHandle);
                 }
                 else
                 {
@@ -454,6 +584,17 @@ namespace ultimate
             //{
             //    arrow1.PaintColor = Color.Transparent;
             //}
+        }
+        
+        /// <summary>
+        /// 添加报警信息
+        /// </summary>
+        /// <param name="message"></param>
+        private void add_warn_info(string message)
+        {
+            this.info_display.Rows.Add(DateTime.Now, message);
+            this.info_display.Rows[this.info_display.Rows.Count - 1].Cells[0].Style.ForeColor = Color.Red;
+            this.info_display.Rows[this.info_display.Rows.Count - 1].Cells[1].Style.ForeColor = Color.Red;
         }
     }
 }
