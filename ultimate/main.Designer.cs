@@ -61,11 +61,6 @@
             server_connect_stratus.Size = new Size(174, 20);
             server_connect_stratus.Text = "服务器连接状态：未连接";
             // 
-            // blink_timer
-            // 
-            blink_timer.Interval = 400;
-            blink_timer.Tick += blink_timer_Tick;
-            // 
             // main_layout
             // 
             main_layout.ColumnCount = 2;

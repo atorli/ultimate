@@ -63,6 +63,9 @@ namespace ultimate
         /// </summary>
         public Dictionary<int, Control> modes = new Dictionary<int, Control>();
 
+        /// <summary>
+        /// 表示当前模式显示的控件
+        /// </summary>
         private Control? current_control { get; set; } = null;
 
         /// <summary>
@@ -187,183 +190,186 @@ namespace ultimate
         /// <param name="TimeStamps"></param>
         private void step_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-
+            object? _clientHandle = ClientHandles.GetValue(i);
             if (info_display.Rows.Count == 500)
             {
                 info_display.Rows.Clear();
             }
 
-            object? value = ItemValues.GetValue(1);
-            if (value != null)
+            for (int i = 1;i <= NumItems;++i)
             {
-                Int16 step = (Int16)value;
-
-                switch (step)
+                object? value = ItemValues.GetValue(i);
+                if (value != null)
                 {
-                    case 0:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "等待设备启动");
-                            break;
-                        }
-                    case 10:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "上下压紧气缸工作");
-                            break;
-                        }
-                    case 20:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "检测装车螺丝与缓冲块");
-                            break;
-                        }
-                    case 30:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "电机高低配选择");
-                            break;
-                        }
+                    Int16 step = (Int16)value;
 
-                    case 40:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "滑块向下止点运行");
+                    switch (step)
+                    {
+                        case 0:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "等待设备启动");
+                                break;
+                            }
+                        case 10:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "上下压紧气缸工作");
+                                break;
+                            }
+                        case 20:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "检测装车螺丝与缓冲块");
+                                break;
+                            }
+                        case 30:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "电机高低配选择");
+                                break;
+                            }
+
+                        case 40:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "滑块向下止点运行");
+                                break;
+                            }
+                        case 50:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "伺服电机带负载向最低点运行");
+                                break;
+                            }
+                        case 60:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
+                                break;
+                            }
+                        case 70:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
+                                break;
+                            }
+                        case 80:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
+                                break;
+                            }
+                        case 90:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
+                                break;
+                            }
+                        case 100:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
+                                break;
+                            }
+                        case 110:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
+                                break;
+                            }
+                        case 120:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
+                                break;
+                            }
+                        case 130:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "加载气缸工作");
+                                break;
+                            }
+                        case 140:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "滑块向上止点运行");
+                                break;
+                            }
+                        case 150:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "判断电机运行电流是否超差");
+                                break;
+                            }
+                        case 151:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "加载气缸回基本位");
+                                break;
+                            }
+                        case 160:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
+                                break;
+                            }
+                        case 170:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
+                                break;
+                            }
+                        case 180:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
+                                break;
+                            }
+                        case 190:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
+                                break;
+                            }
+                        case 200:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
+                                break;
+                            }
+                        case 210:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
+                                break;
+                            }
+                        case 220:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
+                                break;
+                            }
+                        case 230:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "交付气缸工作");
+                                break;
+                            }
+                        case 240:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "电机向交付位置运行，交付位置信号检测中");
+                                break;
+                            }
+                        case 260:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "交付位置确认");
+                                break;
+                            }
+                        case 270:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "交付气缸回基本位");
+                                break;
+                            }
+                        case 280:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "上下压紧气缸回基本位");
+                                break;
+                            }
+                        case 290:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "打印标签中");
+                                break;
+                            }
+                        case 300:
+                            {
+                                info_display.Rows.Add(DateTime.Now, "请取走门板");
+                                break;
+                            }
+                        default:
+                            Logger.Error("未知流程步骤!");
                             break;
-                        }
-                    case 50:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "伺服电机带负载向最低点运行");
-                            break;
-                        }
-                    case 60:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
-                            break;
-                        }
-                    case 70:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
-                            break;
-                        }
-                    case 80:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
-                            break;
-                        }
-                    case 90:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
-                            break;
-                        }
-                    case 100:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
-                            break;
-                        }
-                    case 110:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
-                            break;
-                        }
-                    case 120:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
-                            break;
-                        }
-                    case 130:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "加载气缸工作");
-                            break;
-                        }
-                    case 140:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "滑块向上止点运行");
-                            break;
-                        }
-                    case 150:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "判断电机运行电流是否超差");
-                            break;
-                        }
-                    case 151:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "加载气缸回基本位");
-                            break;
-                        }
-                    case 160:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
-                            break;
-                        }
-                    case 170:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
-                            break;
-                        }
-                    case 180:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
-                            break;
-                        }
-                    case 190:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
-                            break;
-                        }
-                    case 200:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
-                            break;
-                        }
-                    case 210:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
-                            break;
-                        }
-                    case 220:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
-                            break;
-                        }
-                    case 230:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "交付气缸工作");
-                            break;
-                        }
-                    case 240:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "电机向交付位置运行，交付位置信号检测中");
-                            break;
-                        }
-                    case 260:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "交付位置确认");
-                            break;
-                        }
-                    case 270:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "交付气缸回基本位");
-                            break;
-                        }
-                    case 280:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "上下压紧气缸回基本位");
-                            break;
-                        }
-                    case 290:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "打印标签中");
-                            break;
-                        }
-                    case 300:
-                        {
-                            info_display.Rows.Add(DateTime.Now, "请取走门板");
-                            break;
-                        }
-                    default:
-                        Logger.Error("未知流程步骤!");
-                        break;
+                    }
                 }
-            }
-            else
-            {
-                Logger.Error("获取流程状态异常，流程状态为空引用");
+                else
+                {
+                    Logger.Error("获取流程状态异常，流程状态为空引用");
+                }
             }
         }
 
@@ -575,23 +581,6 @@ namespace ultimate
                 //连接失败
                 Logger.Error($"连接KepServer失败，{ex.Message}.请检查Kepserver是否正常运行以及配置文件中的服务器名称是否正确!");
             }
-        }
-
-        /// <summary>
-        /// 闪烁定时器，控件箭头的闪烁
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void blink_timer_Tick(object sender, EventArgs e)
-        {
-            //if (this.arrow1.PaintColor == Color.Transparent)
-            //{
-            //    this.arrow1.PaintColor = Color.Green;
-            //}
-            //else if (this.arrow1.PaintColor == Color.Green)
-            //{
-            //    arrow1.PaintColor = Color.Transparent;
-            //}
         }
 
         /// <summary>

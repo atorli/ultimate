@@ -17,59 +17,50 @@ namespace ultimate
             InitializeComponent();
         }
 
-        /// <summary>
-        /// 上箭头闪烁还是下箭头闪烁，0-下箭头闪烁,1-上箭头闪烁
-        /// 默认为上箭头闪烁
-        /// </summary>
-        private int up_or_down = 0;
-
-        private void blink_timer_Tick(object sender, EventArgs e)
+        private void up_arrow_blink_timer_Tick(object sender, EventArgs e)
         {
-            if (up_or_down == 0)
+            if (up_arrow.PaintColor == Color.Transparent)
             {
-                //下箭头
-                if (DownArrow.PaintColor == Color.Green)
-                {
-                    DownArrow.PaintColor = Color.Transparent;
-                }
-                else if (DownArrow.PaintColor == Color.Transparent)
-                {
-                    DownArrow.PaintColor = Color.Green;
-                }
+                up_arrow.PaintColor = Color.Green;
             }
-            else if (up_or_down == 1)
+            else if (up_arrow.PaintColor == Color.Green)
             {
-                //上箭头
-                if (UpArrow.PaintColor == Color.Green)
-                {
-                    UpArrow.PaintColor = Color.Transparent;
-                }
-                else if (UpArrow.PaintColor == Color.Transparent)
-                {
-                    UpArrow.PaintColor = Color.Green;
-                }
+                up_arrow.PaintColor = Color.Transparent;
             }
         }
 
-        public void start_up_blink()
+        public void start_up_arrow_blink()
         {
-            blink_timer.Enabled = false;
-            up_or_down = 1;
-            blink_timer.Enabled = true;
+            up_arrow_blink_timer.Enabled = true;
         }
 
-        public void start_down_blink()
+        public void stop_up_arrow_blink()
         {
-            blink_timer.Enabled = false;
-            up_or_down = 0;
-            blink_timer.Enabled = true;
+            up_arrow_blink_timer.Enabled = false;
+            up_arrow.PaintColor = Color.Green;
         }
 
-        public void disable_blink()
+        private void down_arrow_blink_timer_Tick(object sender, EventArgs e)
         {
-            blink_timer.Enabled = false;
+            if (down_arrow.PaintColor == Color.Transparent)
+            {
+                down_arrow.PaintColor = Color.Green;
+            }
+            else if (down_arrow.PaintColor == Color.Green)
+            {
+                down_arrow.PaintColor = Color.Transparent;
+            }
         }
 
+        public void start_down_arrow_blink()
+        {
+            down_arrow_blink_timer.Enabled = true;
+        }
 
+        public void stop_down_arrow_blink()
+        {
+            down_arrow_blink_timer.Enabled = false;
+            down_arrow.PaintColor = Color.Green;
+        }
     }
 }

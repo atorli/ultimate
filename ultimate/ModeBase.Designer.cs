@@ -29,52 +29,59 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            UpArrow = new WinFormsControlLibrary1.Arrow();
-            DownArrow = new WinFormsControlLibrary1.Arrow();
-            blink_timer = new System.Windows.Forms.Timer(components);
+            up_arrow = new WinFormsControlLibrary1.Arrow();
+            down_arrow = new WinFormsControlLibrary1.Arrow();
+            up_arrow_blink_timer = new System.Windows.Forms.Timer(components);
+            down_arrow_blink_timer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
-            // UpArrow
+            // up_arrow
             // 
-            UpArrow.ArrowDirection = WinFormsControlLibrary1.Arrow.Direction.Up;
-            UpArrow.BackColor = Color.Transparent;
-            UpArrow.Location = new Point(82, 73);
-            UpArrow.Margin = new Padding(4);
-            UpArrow.Name = "UpArrow";
-            UpArrow.PaintColor = Color.Transparent;
-            UpArrow.Size = new Size(50, 125);
-            UpArrow.TabIndex = 2;
+            up_arrow.ArrowDirection = WinFormsControlLibrary1.Arrow.Direction.Up;
+            up_arrow.BackColor = Color.Transparent;
+            up_arrow.Location = new Point(82, 73);
+            up_arrow.Margin = new Padding(4);
+            up_arrow.Name = "up_arrow";
+            up_arrow.PaintColor = Color.Transparent;
+            up_arrow.Size = new Size(50, 125);
+            up_arrow.TabIndex = 2;
             // 
-            // DownArrow
+            // down_arrow
             // 
-            DownArrow.ArrowDirection = WinFormsControlLibrary1.Arrow.Direction.Down;
-            DownArrow.BackColor = Color.Transparent;
-            DownArrow.Location = new Point(69, 318);
-            DownArrow.Margin = new Padding(4);
-            DownArrow.Name = "DownArrow";
-            DownArrow.PaintColor = Color.Transparent;
-            DownArrow.Size = new Size(50, 125);
-            DownArrow.TabIndex = 3;
+            down_arrow.ArrowDirection = WinFormsControlLibrary1.Arrow.Direction.Down;
+            down_arrow.BackColor = Color.Transparent;
+            down_arrow.Location = new Point(69, 318);
+            down_arrow.Margin = new Padding(4);
+            down_arrow.Name = "down_arrow";
+            down_arrow.PaintColor = Color.Transparent;
+            down_arrow.Size = new Size(50, 125);
+            down_arrow.TabIndex = 3;
             // 
-            // blink_timer
+            // up_arrow_blink_timer
             // 
-            blink_timer.Interval = 500;
-            blink_timer.Tick += blink_timer_Tick;
+            up_arrow_blink_timer.Interval = 500;
+            up_arrow_blink_timer.Tick += up_arrow_blink_timer_Tick;
+            // 
+            // down_arrow_blink_timer
+            // 
+            down_arrow_blink_timer.Interval = 500;
+            down_arrow_blink_timer.Tick += down_arrow_blink_timer_Tick;
             // 
             // ModeBase
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(DownArrow);
-            Controls.Add(UpArrow);
+            Controls.Add(down_arrow);
+            Controls.Add(up_arrow);
             Name = "ModeBase";
             Size = new Size(599, 500);
             ResumeLayout(false);
         }
 
         #endregion
-        protected WinFormsControlLibrary1.Arrow UpArrow;
-        protected WinFormsControlLibrary1.Arrow DownArrow;
-        protected System.Windows.Forms.Timer blink_timer;
+        protected WinFormsControlLibrary1.Arrow up_arrow;
+        protected WinFormsControlLibrary1.Arrow down_arrow;
+        protected System.Windows.Forms.Timer up_arrow_blink_timer;
+        protected System.Windows.Forms.Timer down_arrow_blink_timer;
     }
 }
