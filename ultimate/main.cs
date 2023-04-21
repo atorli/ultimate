@@ -49,6 +49,16 @@ namespace ultimate
         public OPCItems? WarnGroupItems { get; set; }
 
         /// <summary>
+        /// 异常组
+        /// </summary>
+        public OPCGroup? ErrorGroup { get;set; }
+
+        /// <summary>
+        /// 异常组项集合
+        /// </summary>
+        public OPCItems? ErrorGroupItems { get; set; }  
+
+        /// <summary>
         /// 配置对象
         /// </summary>
         public IConfigurationRoot Config { get; set; }
@@ -190,7 +200,6 @@ namespace ultimate
         /// <param name="TimeStamps"></param>
         private void step_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            object? _clientHandle = ClientHandles.GetValue(i);
             if (info_display.Rows.Count == 500)
             {
                 info_display.Rows.Clear();
@@ -512,6 +521,11 @@ namespace ultimate
             }
         }
 
+        private void error_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+
+        }
+
         /// <summary>
         /// 当主界面第一次显示时，开始连接服务器，并且开始做一些
         /// 监听数据的操作
@@ -569,6 +583,17 @@ namespace ultimate
                     WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x436_5.Name}", ultimate.WarnGroup.x436_5.ClientHandle);
                     WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x438_8.Name}", ultimate.WarnGroup.x438_8.ClientHandle);
                     WarnGroupItems.AddItem($"{AddressPrefix}{ultimate.WarnGroup.x439_3.Name}", ultimate.WarnGroup.x439_3.ClientHandle);
+
+                    //异常组
+                    ErrorGroup = Groups.Add("err_group");
+                    ErrorGroup.IsSubscribed = true;
+                    ErrorGroup.DataChange += error_group_data_change;
+                    ErrorGroupItems = ErrorGroup.OPCItems;
+
+                    foreach(var pair in ultimate.ErrorGroup.items)
+                    {
+                        ErrorGroupItems.AddItem($"{AddressPrefix}{pair.Value.Name}",pair.Value.ClientHandle);
+                    }
                 }
                 else
                 {
@@ -594,4 +619,4 @@ namespace ultimate
             this.info_display.Rows[this.info_display.Rows.Count - 1].Cells[1].Style.ForeColor = Color.Red;
         }
     }
-}
+} 

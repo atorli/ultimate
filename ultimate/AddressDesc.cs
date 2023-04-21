@@ -45,6 +45,51 @@ namespace ultimate
         public static AddressDesc step = new AddressDesc("step", client_handle++);
     }
 
+    internal static class ErrorGroup
+    {
+        private static int client_handle = 0;
+
+        public static Dictionary<int, AddressDesc> items { get; private set; } = new();
+
+        static ErrorGroup()
+        {
+            items.Add(client_handle, new AddressDesc("OP40-1交付位置检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1长导轨侧缓冲块检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1短导轨侧缓冲块检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1长导轨滚轮螺丝检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1短导轨滚轮螺丝检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1长导轨下止点检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1短导轨下止点检测", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳松检测1", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳松检测2", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳松检测3", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳铰接检测1", client_handle));
+            client_handle++;
+
+            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳铰接检测2", client_handle));
+        }
+    }
+
     internal static class WarnGroup
     {
         private static int client_handle = 0;

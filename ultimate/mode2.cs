@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ultimate
 {
-    public partial class mode2 : UserControl
+    public partial class mode2 : ModeBase
     {
         public mode2()
         {
