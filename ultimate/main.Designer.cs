@@ -28,17 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             foot_status = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
-            blink_timer = new System.Windows.Forms.Timer(components);
             main_layout = new TableLayoutPanel();
+            right_vertical_spliter = new SplitContainer();
             info_display = new DataGridView();
-            datetime = new DataGridViewTextBoxColumn();
-            info = new DataGridViewTextBoxColumn();
+            warn_display = new DataGridView();
+            info_datetime = new DataGridViewTextBoxColumn();
+            info_message = new DataGridViewTextBoxColumn();
+            warn_datetime = new DataGridViewTextBoxColumn();
+            warn_message = new DataGridViewTextBoxColumn();
             foot_status.SuspendLayout();
             main_layout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)right_vertical_spliter).BeginInit();
+            right_vertical_spliter.Panel1.SuspendLayout();
+            right_vertical_spliter.Panel2.SuspendLayout();
+            right_vertical_spliter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)info_display).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)warn_display).BeginInit();
             SuspendLayout();
             // 
             // foot_status
@@ -66,7 +73,7 @@
             main_layout.ColumnCount = 2;
             main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
             main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
-            main_layout.Controls.Add(info_display, 1, 0);
+            main_layout.Controls.Add(right_vertical_spliter, 1, 0);
             main_layout.Dock = DockStyle.Fill;
             main_layout.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
             main_layout.Location = new Point(0, 0);
@@ -77,14 +84,32 @@
             main_layout.Size = new Size(1522, 869);
             main_layout.TabIndex = 4;
             // 
+            // right_vertical_spliter
+            // 
+            right_vertical_spliter.Dock = DockStyle.Fill;
+            right_vertical_spliter.Location = new Point(992, 3);
+            right_vertical_spliter.Name = "right_vertical_spliter";
+            right_vertical_spliter.Orientation = Orientation.Horizontal;
+            // 
+            // right_vertical_spliter.Panel1
+            // 
+            right_vertical_spliter.Panel1.Controls.Add(info_display);
+            // 
+            // right_vertical_spliter.Panel2
+            // 
+            right_vertical_spliter.Panel2.Controls.Add(warn_display);
+            right_vertical_spliter.Size = new Size(527, 863);
+            right_vertical_spliter.SplitterDistance = 428;
+            right_vertical_spliter.TabIndex = 5;
+            // 
             // info_display
             // 
             info_display.AllowUserToAddRows = false;
             info_display.BorderStyle = BorderStyle.None;
             info_display.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            info_display.Columns.AddRange(new DataGridViewColumn[] { datetime, info });
+            info_display.Columns.AddRange(new DataGridViewColumn[] { info_datetime, info_message });
             info_display.Dock = DockStyle.Fill;
-            info_display.Location = new Point(989, 0);
+            info_display.Location = new Point(0, 0);
             info_display.Margin = new Padding(0);
             info_display.Name = "info_display";
             info_display.ReadOnly = true;
@@ -92,24 +117,54 @@
             info_display.RowHeadersVisible = false;
             info_display.RowHeadersWidth = 51;
             info_display.RowTemplate.Height = 25;
-            info_display.Size = new Size(533, 869);
+            info_display.Size = new Size(527, 428);
             info_display.TabIndex = 4;
             // 
-            // datetime
+            // warn_display
             // 
-            datetime.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            datetime.HeaderText = "时间";
-            datetime.MinimumWidth = 6;
-            datetime.Name = "datetime";
-            datetime.ReadOnly = true;
+            warn_display.AllowDrop = true;
+            warn_display.AllowUserToAddRows = false;
+            warn_display.AllowUserToDeleteRows = false;
+            warn_display.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            warn_display.Columns.AddRange(new DataGridViewColumn[] { warn_datetime, warn_message });
+            warn_display.Dock = DockStyle.Fill;
+            warn_display.Location = new Point(0, 0);
+            warn_display.Name = "warn_display";
+            warn_display.RowHeadersVisible = false;
+            warn_display.RowHeadersWidth = 51;
+            warn_display.RowTemplate.Height = 29;
+            warn_display.Size = new Size(527, 431);
+            warn_display.TabIndex = 0;
             // 
-            // info
+            // info_datetime
             // 
-            info.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            info.HeaderText = "信息";
-            info.MinimumWidth = 6;
-            info.Name = "info";
-            info.ReadOnly = true;
+            info_datetime.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            info_datetime.HeaderText = "时间";
+            info_datetime.MinimumWidth = 6;
+            info_datetime.Name = "info_datetime";
+            info_datetime.ReadOnly = true;
+            // 
+            // info_message
+            // 
+            info_message.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            info_message.HeaderText = "信息";
+            info_message.MinimumWidth = 6;
+            info_message.Name = "info_message";
+            info_message.ReadOnly = true;
+            // 
+            // warn_datetime
+            // 
+            warn_datetime.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            warn_datetime.HeaderText = "时间";
+            warn_datetime.MinimumWidth = 6;
+            warn_datetime.Name = "warn_datetime";
+            // 
+            // warn_message
+            // 
+            warn_message.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            warn_message.HeaderText = "信息";
+            warn_message.MinimumWidth = 6;
+            warn_message.Name = "warn_message";
             // 
             // main
             // 
@@ -125,7 +180,12 @@
             foot_status.ResumeLayout(false);
             foot_status.PerformLayout();
             main_layout.ResumeLayout(false);
+            right_vertical_spliter.Panel1.ResumeLayout(false);
+            right_vertical_spliter.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)right_vertical_spliter).EndInit();
+            right_vertical_spliter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)info_display).EndInit();
+            ((System.ComponentModel.ISupportInitialize)warn_display).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -133,10 +193,13 @@
         #endregion
         private StatusStrip foot_status;
         private ToolStripStatusLabel server_connect_stratus;
-        private System.Windows.Forms.Timer blink_timer;
         private TableLayoutPanel main_layout;
         private DataGridView info_display;
-        private DataGridViewTextBoxColumn datetime;
-        private DataGridViewTextBoxColumn info;
+        private SplitContainer right_vertical_spliter;
+        private DataGridView warn_display;
+        private DataGridViewTextBoxColumn info_datetime;
+        private DataGridViewTextBoxColumn info_message;
+        private DataGridViewTextBoxColumn warn_datetime;
+        private DataGridViewTextBoxColumn warn_message;
     }
 }

@@ -51,12 +51,12 @@ namespace ultimate
         /// <summary>
         /// 异常组
         /// </summary>
-        public OPCGroup? ErrorGroup { get;set; }
+        public OPCGroup? ErrorGroup { get; set; }
 
         /// <summary>
         /// 异常组项集合
         /// </summary>
-        public OPCItems? ErrorGroupItems { get; set; }  
+        public OPCItems? ErrorGroupItems { get; set; }
 
         /// <summary>
         /// 配置对象
@@ -205,7 +205,7 @@ namespace ultimate
                 info_display.Rows.Clear();
             }
 
-            for (int i = 1;i <= NumItems;++i)
+            for (int i = 1; i <= NumItems; ++i)
             {
                 object? value = ItemValues.GetValue(i);
                 if (value != null)
@@ -216,158 +216,162 @@ namespace ultimate
                     {
                         case 0:
                             {
-                                info_display.Rows.Add(DateTime.Now, "等待设备启动");
+                                add_step_message("等待设备启动");
                                 break;
                             }
                         case 10:
                             {
-                                info_display.Rows.Add(DateTime.Now, "上下压紧气缸工作");
+                                add_step_message("上下压紧气缸工作");                             
                                 break;
                             }
                         case 20:
                             {
-                                info_display.Rows.Add(DateTime.Now, "检测装车螺丝与缓冲块");
+                                add_step_message("检测装车螺丝与缓冲块");
                                 break;
                             }
                         case 30:
                             {
-                                info_display.Rows.Add(DateTime.Now, "电机高低配选择");
+                                add_step_message("电机高低配选择");
                                 break;
                             }
 
                         case 40:
                             {
-                                info_display.Rows.Add(DateTime.Now, "滑块向下止点运行");
+                                add_step_message("滑块向下止点运行");
+                                //todo:下指示灯闪烁
                                 break;
                             }
                         case 50:
                             {
-                                info_display.Rows.Add(DateTime.Now, "伺服电机带负载向最低点运行");
+                                add_step_message("伺服电机带负载向最低点运行");                                
                                 break;
                             }
                         case 60:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
+                                add_step_message("顶升平移气缸工作");                                
                                 break;
                             }
                         case 70:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
+                                add_step_message("顶升气缸工作");                                
                                 break;
                             }
                         case 80:
                             {
-                                info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
+                                add_step_message("钢丝绳松紧检测");                                
                                 break;
                             }
                         case 90:
                             {
-                                info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
+                                add_step_message("铰接继电器工作");                              
                                 break;
                             }
                         case 100:
                             {
-                                info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
+                                add_step_message("钢丝绳铰接检测");
+                                //todo:铰接检测报警
                                 break;
                             }
                         case 110:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
+                                add_step_message("顶升气缸回基本位");                           
                                 break;
                             }
                         case 120:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
+                                add_step_message("顶升平移气缸回基本位");                                
                                 break;
                             }
                         case 130:
                             {
-                                info_display.Rows.Add(DateTime.Now, "加载气缸工作");
+                                add_step_message("加载气缸工作");                                
                                 break;
                             }
                         case 140:
                             {
-                                info_display.Rows.Add(DateTime.Now, "滑块向上止点运行");
+                                add_step_message("滑块向上止点运行");
+                                //todo:上箭头闪烁
                                 break;
                             }
                         case 150:
                             {
-                                info_display.Rows.Add(DateTime.Now, "判断电机运行电流是否超差");
+                                add_step_message("判断电机运行电流是否超差");                            
                                 break;
                             }
                         case 151:
                             {
-                                info_display.Rows.Add(DateTime.Now, "加载气缸回基本位");
+                                add_step_message("加载气缸回基本位");                                
                                 break;
                             }
                         case 160:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸工作");
+                                add_step_message("顶升平移气缸工作");                                
                                 break;
                             }
                         case 170:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升气缸工作");
+                                add_step_message("顶升气缸工作");                                
                                 break;
                             }
                         case 180:
                             {
-                                info_display.Rows.Add(DateTime.Now, "钢丝绳松紧检测");
+                                add_step_message("钢丝绳松紧检测");                                
                                 break;
                             }
                         case 190:
                             {
-                                info_display.Rows.Add(DateTime.Now, "铰接继电器工作");
+                                add_step_message("铰接继电器工作");                                
                                 break;
                             }
                         case 200:
                             {
-                                info_display.Rows.Add(DateTime.Now, "钢丝绳铰接检测");
+                                add_step_message("钢丝绳铰接检测");                                
                                 break;
                             }
                         case 210:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升气缸回基本位");
+                                add_step_message("顶升气缸回基本位");
                                 break;
                             }
                         case 220:
                             {
-                                info_display.Rows.Add(DateTime.Now, "顶升平移气缸回基本位");
+                                add_step_message("顶升平移气缸回基本位");                                
                                 break;
                             }
                         case 230:
                             {
-                                info_display.Rows.Add(DateTime.Now, "交付气缸工作");
+                                add_step_message("交付气缸工作");                               
                                 break;
                             }
                         case 240:
                             {
-                                info_display.Rows.Add(DateTime.Now, "电机向交付位置运行，交付位置信号检测中");
+                                add_step_message("电机向交付位置运行，交付位置信号检测中");
+                                //todo:滑块到位检测
                                 break;
                             }
                         case 260:
                             {
-                                info_display.Rows.Add(DateTime.Now, "交付位置确认");
+                                add_step_message("交付位置确认");                                
                                 break;
                             }
                         case 270:
                             {
-                                info_display.Rows.Add(DateTime.Now, "交付气缸回基本位");
+                                add_step_message("交付气缸回基本位");                                
                                 break;
                             }
                         case 280:
                             {
-                                info_display.Rows.Add(DateTime.Now, "上下压紧气缸回基本位");
+                                add_step_message("上下压紧气缸回基本位");                                
                                 break;
                             }
                         case 290:
                             {
-                                info_display.Rows.Add(DateTime.Now, "打印标签中");
+                                add_step_message("打印标签中");                               
                                 break;
                             }
                         case 300:
                             {
-                                info_display.Rows.Add(DateTime.Now, "请取走门板");
+                                add_step_message("请取走门板");                                
                                 break;
                             }
                         default:
@@ -411,7 +415,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x428_3_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x428_3_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x428_3_warn_message[j]}");
                                 }
                             }
@@ -422,7 +426,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x430_8_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x430_8_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x430_8_warn_message[j]}");
                                 }
                             }
@@ -433,7 +437,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x431_8_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x431_8_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x431_8_warn_message[j]}");
                                 }
                             }
@@ -444,7 +448,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x432_2_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x432_2_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x432_2_warn_message[j]}");
                                 }
                             }
@@ -455,7 +459,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x434_8_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x434_8_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x434_8_warn_message[j]}");
                                 }
                             }
@@ -466,7 +470,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x435_8_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x435_8_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x435_8_warn_message[j]}");
                                 }
                             }
@@ -477,7 +481,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x436_5_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x436_5_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x436_5_warn_message[j]}");
                                 }
                             }
@@ -488,7 +492,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x438_8_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x438_8_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x438_8_warn_message[j]}");
                                 }
                             }
@@ -499,7 +503,7 @@ namespace ultimate
                             {
                                 if (bool_arr[j])
                                 {
-                                    add_warn_info(ultimate.WarnGroup.x439_3_warn_message[j]);
+                                    add_warn_message(ultimate.WarnGroup.x439_3_warn_message[j]);
                                     Logger.Warn($"工作报警：{ultimate.WarnGroup.x439_3_warn_message[j]}");
                                 }
                             }
@@ -590,9 +594,9 @@ namespace ultimate
                     ErrorGroup.DataChange += error_group_data_change;
                     ErrorGroupItems = ErrorGroup.OPCItems;
 
-                    foreach(var pair in ultimate.ErrorGroup.items)
+                    foreach (var pair in ultimate.ErrorGroup.items)
                     {
-                        ErrorGroupItems.AddItem($"{AddressPrefix}{pair.Value.Name}",pair.Value.ClientHandle);
+                        ErrorGroupItems.AddItem($"{AddressPrefix}{pair.Value.Name}", pair.Value.ClientHandle);
                     }
                 }
                 else
@@ -612,11 +616,25 @@ namespace ultimate
         /// 添加报警信息
         /// </summary>
         /// <param name="message"></param>
-        private void add_warn_info(string message)
+        private void add_warn_message(string message)
         {
-            this.info_display.Rows.Add(DateTime.Now, message);
-            this.info_display.Rows[this.info_display.Rows.Count - 1].Cells[0].Style.ForeColor = Color.Red;
-            this.info_display.Rows[this.info_display.Rows.Count - 1].Cells[1].Style.ForeColor = Color.Red;
+            this.warn_display.Rows.Add(DateTime.Now, message);
+            this.warn_display.Rows[this.info_display.Rows.Count - 1].Cells[0].Style.ForeColor = Color.Red;
+            this.warn_display.Rows[this.info_display.Rows.Count - 1].Cells[1].Style.ForeColor = Color.Red;
+        }
+        
+        /// <summary>
+        /// 添加流程信息
+        /// </summary>
+        /// <param name="message"></param>
+        private void add_step_message(string message)
+        {
+            if(info_display.Rows.Count >= 500)
+            {
+                info_display.Rows.Clear();
+            }
+
+            info_display.Rows.Add(DateTime.Now,message);
         }
     }
-} 
+}

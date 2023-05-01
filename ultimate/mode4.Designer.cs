@@ -39,7 +39,6 @@
             DoubleBuffered = true;
             Name = "mode4";
             Size = new Size(750, 750);
-            SizeChanged += mode4_SizeChanged;
             ResumeLayout(false);
         }
 

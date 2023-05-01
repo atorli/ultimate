@@ -17,6 +17,15 @@ namespace ultimate
             InitializeComponent();
         }
 
+        public double up_arrow_x_ratio { get; set; } = 0.5;
+
+        public double up_arrow_y_ratio { get; set; } = 0.4;
+
+        public double down_arrow_x_ratio { get; set; } = 0.5;
+
+        public double down_arrow_y_ratio { get; set; } = 0.6;
+
+
         private void up_arrow_blink_timer_Tick(object sender, EventArgs e)
         {
             if (up_arrow.PaintColor == Color.Transparent)
@@ -61,6 +70,15 @@ namespace ultimate
         {
             down_arrow_blink_timer.Enabled = false;
             down_arrow.PaintColor = Color.Green;
+        }
+
+        private void ModeBase_SizeChanged(object sender, EventArgs e)
+        {
+            Point p1 = new Point((int)(down_arrow_x_ratio * this.Size.Width), (int)(down_arrow_y_ratio * this.Size.Height));
+            this.down_arrow.Location = p1;
+
+            Point p2 = new Point((int)up_arrow_x_ratio *Size.Width , (int)(up_arrow_y_ratio * Size.Height));
+            this.up_arrow.Location = p2;
         }
     }
 }

@@ -75,6 +75,7 @@
             Controls.Add(up_arrow);
             Name = "ModeBase";
             Size = new Size(599, 500);
+            SizeChanged += ModeBase_SizeChanged;
             ResumeLayout(false);
         }
 
