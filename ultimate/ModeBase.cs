@@ -74,10 +74,10 @@ namespace ultimate
 
         private void ModeBase_SizeChanged(object sender, EventArgs e)
         {
-            Point p1 = new Point((int)(down_arrow_x_ratio * this.Size.Width), (int)(down_arrow_y_ratio * this.Size.Height));
+            Point p1 = new Point((int)(down_arrow_x_ratio * Size.Width), (int)(down_arrow_y_ratio * Size.Height));
             this.down_arrow.Location = p1;
 
-            Point p2 = new Point((int)up_arrow_x_ratio *Size.Width , (int)(up_arrow_y_ratio * Size.Height));
+            Point p2 = new Point((int)(up_arrow_x_ratio * Size.Width) , (int)(up_arrow_y_ratio * Size.Height));
             this.up_arrow.Location = p2;
         }
     }
