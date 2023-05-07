@@ -1,6 +1,6 @@
 {
   "server_name": "Kepware.KEPServerEX.V6",
-  "channel": "ch2",
-  "device": "dev1",
+  "channel": "ch1",
+  "device": "s7-1200",
   "info_display_rows_count": 500
 }

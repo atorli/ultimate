@@ -71,12 +71,12 @@ namespace ultimate
         /// <summary>
         /// 模式对应的控件集合
         /// </summary>
-        public Dictionary<int, Control> modes = new Dictionary<int, Control>();
+        public Dictionary<int, ModeBase> modes = new Dictionary<int, ModeBase>();
 
         /// <summary>
         /// 表示当前模式显示的控件
         /// </summary>
-        private Control? current_control { get; set; } = null;
+        private ModeBase? current_control { get; set; } = null;
 
         /// <summary>
         /// opc地址前缀
@@ -138,11 +138,11 @@ namespace ultimate
                             {
                                 if (current_control != null)
                                 {
-                                    this.main_layout.Controls.Remove(current_control);
+                                    main_layout.Controls.Remove(current_control);
                                 }
 
-                                this.main_layout.Controls.Add(modes[mode_id], 0, 0);
-                                this.current_control = modes[mode_id];
+                                main_layout.Controls.Add(modes[mode_id]);
+                                current_control = modes[mode_id];
                             }
                             else
                             {
@@ -176,10 +176,22 @@ namespace ultimate
                     else if (clientHandle == ultimate.MetaGroup.motor_current.ClientHandle)
                     {
                         //电流
+                        object? value = ItemValues.GetValue(i);
+                        if (value != null)
+                        {
+                            float current = (float)value;
+                            current_label.Text = $"当前电流：{current} A";
+                        }
                     }
                     else if (clientHandle == ultimate.MetaGroup.time.ClientHandle)
                     {
                         //时间
+                        object? value = ItemValues.GetValue(i);
+                        if(value != null)
+                        {
+                            float time = (Int16)value * 0.1f;
+                            rising_time.Text = $"上升时间：{time.ToString("f2")} S";
+                        }
                     }
                 }
                 else
@@ -200,11 +212,6 @@ namespace ultimate
         /// <param name="TimeStamps"></param>
         private void step_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            if (info_display.Rows.Count == 500)
-            {
-                info_display.Rows.Clear();
-            }
-
             for (int i = 1; i <= NumItems; ++i)
             {
                 object? value = ItemValues.GetValue(i);
@@ -216,12 +223,13 @@ namespace ultimate
                     {
                         case 0:
                             {
+                                clear_message();
                                 add_step_message("等待设备启动");
                                 break;
                             }
                         case 10:
                             {
-                                add_step_message("上下压紧气缸工作");                             
+                                add_step_message("上下压紧气缸工作");
                                 break;
                             }
                         case 20:
@@ -234,36 +242,35 @@ namespace ultimate
                                 add_step_message("电机高低配选择");
                                 break;
                             }
-
                         case 40:
                             {
                                 add_step_message("滑块向下止点运行");
-                                //todo:下指示灯闪烁
+                                current_control?.start_down_arrow_blink();
                                 break;
                             }
                         case 50:
                             {
-                                add_step_message("伺服电机带负载向最低点运行");                                
+                                add_step_message("伺服电机带负载向最低点运行");
                                 break;
                             }
                         case 60:
                             {
-                                add_step_message("顶升平移气缸工作");                                
+                                add_step_message("顶升平移气缸工作");
                                 break;
                             }
                         case 70:
                             {
-                                add_step_message("顶升气缸工作");                                
+                                add_step_message("顶升气缸工作");
                                 break;
                             }
                         case 80:
                             {
-                                add_step_message("钢丝绳松紧检测");                                
+                                add_step_message("钢丝绳松紧检测");
                                 break;
                             }
                         case 90:
                             {
-                                add_step_message("铰接继电器工作");                              
+                                add_step_message("铰接继电器工作");
                                 break;
                             }
                         case 100:
@@ -274,58 +281,58 @@ namespace ultimate
                             }
                         case 110:
                             {
-                                add_step_message("顶升气缸回基本位");                           
+                                add_step_message("顶升气缸回基本位");
                                 break;
                             }
                         case 120:
                             {
-                                add_step_message("顶升平移气缸回基本位");                                
+                                add_step_message("顶升平移气缸回基本位");
                                 break;
                             }
                         case 130:
                             {
-                                add_step_message("加载气缸工作");                                
+                                add_step_message("加载气缸工作");
                                 break;
                             }
                         case 140:
                             {
                                 add_step_message("滑块向上止点运行");
-                                //todo:上箭头闪烁
+                                current_control?.start_up_arrow_blink();
                                 break;
                             }
                         case 150:
                             {
-                                add_step_message("判断电机运行电流是否超差");                            
+                                add_step_message("判断电机运行电流是否超差");
                                 break;
                             }
                         case 151:
                             {
-                                add_step_message("加载气缸回基本位");                                
+                                add_step_message("加载气缸回基本位");
                                 break;
                             }
                         case 160:
                             {
-                                add_step_message("顶升平移气缸工作");                                
+                                add_step_message("顶升平移气缸工作");
                                 break;
                             }
                         case 170:
                             {
-                                add_step_message("顶升气缸工作");                                
+                                add_step_message("顶升气缸工作");
                                 break;
                             }
                         case 180:
                             {
-                                add_step_message("钢丝绳松紧检测");                                
+                                add_step_message("钢丝绳松紧检测");
                                 break;
                             }
                         case 190:
                             {
-                                add_step_message("铰接继电器工作");                                
+                                add_step_message("铰接继电器工作");
                                 break;
                             }
                         case 200:
                             {
-                                add_step_message("钢丝绳铰接检测");                                
+                                add_step_message("钢丝绳铰接检测");
                                 break;
                             }
                         case 210:
@@ -335,12 +342,12 @@ namespace ultimate
                             }
                         case 220:
                             {
-                                add_step_message("顶升平移气缸回基本位");                                
+                                add_step_message("顶升平移气缸回基本位");
                                 break;
                             }
                         case 230:
                             {
-                                add_step_message("交付气缸工作");                               
+                                add_step_message("交付气缸工作");
                                 break;
                             }
                         case 240:
@@ -351,27 +358,27 @@ namespace ultimate
                             }
                         case 260:
                             {
-                                add_step_message("交付位置确认");                                
+                                add_step_message("交付位置确认");
                                 break;
                             }
                         case 270:
                             {
-                                add_step_message("交付气缸回基本位");                                
+                                add_step_message("交付气缸回基本位");
                                 break;
                             }
                         case 280:
                             {
-                                add_step_message("上下压紧气缸回基本位");                                
+                                add_step_message("上下压紧气缸回基本位");
                                 break;
                             }
                         case 290:
                             {
-                                add_step_message("打印标签中");                               
+                                add_step_message("打印标签中");
                                 break;
                             }
                         case 300:
                             {
-                                add_step_message("请取走门板");                                
+                                add_step_message("请取走门板");
                                 break;
                             }
                         default:
@@ -525,9 +532,37 @@ namespace ultimate
             }
         }
 
+        /// <summary>
+        /// 错误组警报事件处理程序
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
         private void error_group_data_change(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-
+            for (int i = 1; i <= NumItems; ++i)
+            {
+                object? handle_ = ClientHandles.GetValue(i);
+                if (handle_ != null)
+                {
+                    int handle = (int)handle_;
+                    if (handle == ultimate.ErrorGroup.long_rail_bottom_check.ClientHandle || handle == ultimate.ErrorGroup.short_trail_bottom_check.ClientHandle)
+                    {
+                        current_control?.stop_down_arrow_blink();
+                    }
+                    else if (handle == ultimate.ErrorGroup.long_trail_top_check.ClientHandle || handle == ultimate.ErrorGroup.short_trail_top_check.ClientHandle)
+                    {
+                        current_control?.stop_up_arrow_blink();
+                    }
+                    //else if (handle == ultimate.ErrorGroup.reset.ClientHandle)
+                    //{
+                    //    clear_message();
+                    //}
+                }
+            }
         }
 
         /// <summary>
@@ -594,10 +629,22 @@ namespace ultimate
                     ErrorGroup.DataChange += error_group_data_change;
                     ErrorGroupItems = ErrorGroup.OPCItems;
 
-                    foreach (var pair in ultimate.ErrorGroup.items)
-                    {
-                        ErrorGroupItems.AddItem($"{AddressPrefix}{pair.Value.Name}", pair.Value.ClientHandle);
-                    }
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.delivery_position_check.Name}", ultimate.ErrorGroup.delivery_position_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.long_rail_buffer_check.Name}", ultimate.ErrorGroup.long_rail_buffer_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.short_rail_buffer_check.Name}", ultimate.ErrorGroup.short_rail_buffer_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.long_rail_screw_check.Name}", ultimate.ErrorGroup.long_rail_screw_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.short_rail_screw_check.Name}", ultimate.ErrorGroup.short_rail_screw_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.long_rail_bottom_check.Name}", ultimate.ErrorGroup.long_rail_bottom_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.short_trail_bottom_check.Name}", ultimate.ErrorGroup.short_trail_bottom_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.steel_brush_check_1.Name}", ultimate.ErrorGroup.steel_brush_check_1.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.steel_brush_check_2.Name}", ultimate.ErrorGroup.steel_brush_check_2.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.steel_brush_check_3.Name}", ultimate.ErrorGroup.steel_brush_check_3.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.steel_brush_splice_check_1.Name}", ultimate.ErrorGroup.steel_brush_splice_check_1.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.steel_brush_splice_check_2.Name}", ultimate.ErrorGroup.steel_brush_splice_check_2.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.long_trail_top_check.Name}", ultimate.ErrorGroup.long_trail_top_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.short_trail_top_check.Name}", ultimate.ErrorGroup.short_trail_top_check.ClientHandle);
+                    ErrorGroupItems.AddItem($"{AddressPrefix}{ultimate.ErrorGroup.reset.Name}", ultimate.ErrorGroup.reset.ClientHandle);
+
                 }
                 else
                 {
@@ -618,23 +665,29 @@ namespace ultimate
         /// <param name="message"></param>
         private void add_warn_message(string message)
         {
-            this.warn_display.Rows.Add(DateTime.Now, message);
-            this.warn_display.Rows[this.info_display.Rows.Count - 1].Cells[0].Style.ForeColor = Color.Red;
-            this.warn_display.Rows[this.info_display.Rows.Count - 1].Cells[1].Style.ForeColor = Color.Red;
+            warn_display.Rows.Add(DateTime.Now, message);
+            warn_display.FirstDisplayedScrollingRowIndex = warn_display.Rows.Count - 1;
         }
-        
+
         /// <summary>
         /// 添加流程信息
         /// </summary>
         /// <param name="message"></param>
         private void add_step_message(string message)
         {
-            if(info_display.Rows.Count >= 500)
-            {
-                info_display.Rows.Clear();
-            }
-
-            info_display.Rows.Add(DateTime.Now,message);
+            info_display.Rows.Add(DateTime.Now, message);
+            info_display.FirstDisplayedScrollingRowIndex = info_display.Rows.Count - 1;
         }
+
+        /// <summary>
+        /// 清除流程以及报警信息
+        /// </summary>
+        private void clear_message()
+        {
+            info_display.Rows.Clear();
+            warn_display.Rows.Clear();
+        }
+
+
     }
 }

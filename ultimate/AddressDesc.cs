@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,47 +48,35 @@ namespace ultimate
 
     internal static class ErrorGroup
     {
-        private static int client_handle = 0;
+        public static AddressDesc delivery_position_check = new AddressDesc("OP40-1交付位置检测", 0);
 
-        public static Dictionary<int, AddressDesc> items { get; private set; } = new();
+        public static AddressDesc long_rail_buffer_check = new AddressDesc("OP40-1长导轨侧缓冲块检测", 1);
 
-        static ErrorGroup()
-        {
-            items.Add(client_handle, new AddressDesc("OP40-1交付位置检测", client_handle));
-            client_handle++;
+        public static AddressDesc short_rail_buffer_check = new AddressDesc("OP40-1短导轨侧缓冲块检测", 2);
 
-            items.Add(client_handle, new AddressDesc("OP40-1长导轨侧缓冲块检测", client_handle));
-            client_handle++;
+        public static AddressDesc long_rail_screw_check = new AddressDesc("OP40-1长导轨滚轮螺丝检测", 3);
 
-            items.Add(client_handle, new AddressDesc("OP40-1短导轨侧缓冲块检测", client_handle));
-            client_handle++;
+        public static AddressDesc short_rail_screw_check = new AddressDesc("OP40-1短导轨滚轮螺丝检测",4);
 
-            items.Add(client_handle, new AddressDesc("OP40-1长导轨滚轮螺丝检测", client_handle));
-            client_handle++;
+        public static AddressDesc long_rail_bottom_check = new AddressDesc("OP40-1长导轨下止点检测", 5);
 
-            items.Add(client_handle, new AddressDesc("OP40-1短导轨滚轮螺丝检测", client_handle));
-            client_handle++;
+        public static AddressDesc short_trail_bottom_check = new AddressDesc("OP40-1短导轨下止点检测",6);
 
-            items.Add(client_handle, new AddressDesc("OP40-1长导轨下止点检测", client_handle));
-            client_handle++;
+        public static AddressDesc steel_brush_check_1 = new AddressDesc("OP40-1钢丝绳松检测1", 7);
 
-            items.Add(client_handle, new AddressDesc("OP40-1短导轨下止点检测", client_handle));
-            client_handle++;
+        public static AddressDesc steel_brush_check_2 = new AddressDesc("OP40-1钢丝绳松检测2", 8);
 
-            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳松检测1", client_handle));
-            client_handle++;
+        public static AddressDesc steel_brush_check_3 = new AddressDesc("OP40-1钢丝绳松检测3", 9);
 
-            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳松检测2", client_handle));
-            client_handle++;
+        public static AddressDesc steel_brush_splice_check_1 = new AddressDesc("OP40-1钢丝绳铰接检测1", 10);
 
-            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳松检测3", client_handle));
-            client_handle++;
+        public static AddressDesc steel_brush_splice_check_2 = new AddressDesc("OP40-1钢丝绳铰接检测2", 11);
 
-            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳铰接检测1", client_handle));
-            client_handle++;
+        public static AddressDesc long_trail_top_check = new AddressDesc("OP40-1长导轨上止点检测", 12);
 
-            items.Add(client_handle, new AddressDesc("OP40-1钢丝绳铰接检测2", client_handle));
-        }
+        public static AddressDesc short_trail_top_check = new AddressDesc("OP40-1短导轨下止点检测", 13);
+
+        public static AddressDesc reset = new AddressDesc("OP40-1复位(触摸屏)", 14);
     }
 
     internal static class WarnGroup

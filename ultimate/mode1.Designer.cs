@@ -32,7 +32,7 @@
             // 
             // up_arrow
             // 
-            up_arrow.Location = new Point(0, 375);
+            up_arrow.Location = new Point(377, 375);
             // 
             // down_arrow
             // 
@@ -47,7 +47,6 @@
             DoubleBuffered = true;
             Name = "mode1";
             Size = new Size(754, 939);
-            up_arrow_x_ratio = 0.6D;
             up_arrow_y_ratio = 0.2D;
             ResumeLayout(false);
         }
