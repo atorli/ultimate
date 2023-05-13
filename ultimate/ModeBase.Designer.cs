@@ -59,10 +59,12 @@
             // 
             // up_arrow_blink_timer
             // 
+            up_arrow_blink_timer.Interval = 150;
             up_arrow_blink_timer.Tick += up_arrow_blink_timer_Tick;
             // 
             // down_arrow_blink_timer
             // 
+            down_arrow_blink_timer.Interval = 150;
             down_arrow_blink_timer.Tick += down_arrow_blink_timer_Tick;
             // 
             // ModeBase

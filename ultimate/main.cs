@@ -187,7 +187,7 @@ namespace ultimate
                     {
                         //时间
                         object? value = ItemValues.GetValue(i);
-                        if(value != null)
+                        if (value != null)
                         {
                             float time = (Int16)value * 0.1f;
                             rising_time.Text = $"上升时间：{time.ToString("f2")} S";
@@ -224,161 +224,162 @@ namespace ultimate
                         case 0:
                             {
                                 clear_message();
-                                add_step_message("等待设备启动");
+                                add_step_message("请放置门板，并启动设备。");
                                 break;
                             }
                         case 10:
                             {
-                                add_step_message("上下压紧气缸工作");
+                                clear_warn_message();
+                                add_step_message("上下压紧气缸工作。");
                                 break;
                             }
                         case 20:
                             {
-                                add_step_message("检测装车螺丝与缓冲块");
+                                add_step_message("检测装车螺丝与缓冲块。");
                                 break;
                             }
                         case 30:
                             {
-                                add_step_message("电机高低配选择");
+                                add_step_message("电机高低配选择。");
                                 break;
                             }
                         case 40:
                             {
-                                add_step_message("滑块向下止点运行");
+                                add_step_message("滑块向下止点运行。");
                                 current_control?.start_down_arrow_blink();
                                 break;
                             }
                         case 50:
                             {
-                                add_step_message("伺服电机带负载向最低点运行");
+                                add_step_message("伺服电机带负载向最低点运行。");
                                 break;
                             }
                         case 60:
                             {
-                                add_step_message("顶升平移气缸工作");
+                                add_step_message("顶升平移气缸工作。");
                                 break;
                             }
                         case 70:
                             {
-                                add_step_message("顶升气缸工作");
+                                add_step_message("顶升气缸工作。");
                                 break;
                             }
                         case 80:
                             {
-                                add_step_message("钢丝绳松紧检测");
+                                add_step_message("钢丝绳松紧检测。");
                                 break;
                             }
                         case 90:
                             {
-                                add_step_message("铰接继电器工作");
+                                add_step_message("铰接继电器工作。");
                                 break;
                             }
                         case 100:
                             {
-                                add_step_message("钢丝绳铰接检测");
+                                add_step_message("钢丝绳铰接检测。");
                                 //todo:铰接检测报警
                                 break;
                             }
                         case 110:
                             {
-                                add_step_message("顶升气缸回基本位");
+                                add_step_message("顶升气缸回基本位。");
                                 break;
                             }
                         case 120:
                             {
-                                add_step_message("顶升平移气缸回基本位");
+                                add_step_message("顶升平移气缸回基本位。");
                                 break;
                             }
                         case 130:
                             {
-                                add_step_message("加载气缸工作");
+                                add_step_message("加载气缸工作。");
                                 break;
                             }
                         case 140:
                             {
-                                add_step_message("滑块向上止点运行");
+                                add_step_message("滑块向上止点运行。");
                                 current_control?.start_up_arrow_blink();
                                 break;
                             }
                         case 150:
                             {
-                                add_step_message("判断电机运行电流是否超差");
+                                add_step_message("判断电机运行电流是否超差。");
                                 break;
                             }
                         case 151:
                             {
-                                add_step_message("加载气缸回基本位");
+                                add_step_message("加载气缸回基本位。");
                                 break;
                             }
                         case 160:
                             {
-                                add_step_message("顶升平移气缸工作");
+                                add_step_message("顶升平移气缸工作。");
                                 break;
                             }
                         case 170:
                             {
-                                add_step_message("顶升气缸工作");
+                                add_step_message("顶升气缸工作。");
                                 break;
                             }
                         case 180:
                             {
-                                add_step_message("钢丝绳松紧检测");
+                                add_step_message("钢丝绳松紧检测。");
                                 break;
                             }
                         case 190:
                             {
-                                add_step_message("铰接继电器工作");
+                                add_step_message("铰接继电器工作。");
                                 break;
                             }
                         case 200:
                             {
-                                add_step_message("钢丝绳铰接检测");
+                                add_step_message("钢丝绳铰接检测。");
                                 break;
                             }
                         case 210:
                             {
-                                add_step_message("顶升气缸回基本位");
+                                add_step_message("顶升气缸回基本位。");
                                 break;
                             }
                         case 220:
                             {
-                                add_step_message("顶升平移气缸回基本位");
+                                add_step_message("顶升平移气缸回基本位。");
                                 break;
                             }
                         case 230:
                             {
-                                add_step_message("交付气缸工作");
+                                add_step_message("交付气缸工作。");
                                 break;
                             }
                         case 240:
                             {
-                                add_step_message("电机向交付位置运行，交付位置信号检测中");
+                                add_step_message("电机向交付位置运行，交付位置信号检测中。");
                                 //todo:滑块到位检测
                                 break;
                             }
                         case 260:
                             {
-                                add_step_message("交付位置确认");
+                                add_step_message("交付位置确认。");
                                 break;
                             }
                         case 270:
                             {
-                                add_step_message("交付气缸回基本位");
+                                add_step_message("交付气缸回基本位。");
                                 break;
                             }
                         case 280:
                             {
-                                add_step_message("上下压紧气缸回基本位");
+                                add_step_message("上下压紧气缸回基本位。");
                                 break;
                             }
                         case 290:
                             {
-                                add_step_message("打印标签中");
+                                add_step_message("打印标签中。");
                                 break;
                             }
                         case 300:
                             {
-                                add_step_message("请取走门板");
+                                add_step_message("请取走门板。");
                                 break;
                             }
                         default:
@@ -551,16 +552,22 @@ namespace ultimate
                     int handle = (int)handle_;
                     if (handle == ultimate.ErrorGroup.long_rail_bottom_check.ClientHandle || handle == ultimate.ErrorGroup.short_trail_bottom_check.ClientHandle)
                     {
+                        //已到达下止点
                         current_control?.stop_down_arrow_blink();
                     }
                     else if (handle == ultimate.ErrorGroup.long_trail_top_check.ClientHandle || handle == ultimate.ErrorGroup.short_trail_top_check.ClientHandle)
                     {
+                        //已到达上止点
                         current_control?.stop_up_arrow_blink();
                     }
-                    //else if (handle == ultimate.ErrorGroup.reset.ClientHandle)
-                    //{
-                    //    clear_message();
-                    //}
+                    else if (handle == ultimate.ErrorGroup.reset.ClientHandle)
+                    {
+                        object? is_pressed = ItemValues.GetValue(i);
+                        if (is_pressed != null)
+                        {
+                            if ((bool)is_pressed) reset();
+                        }
+                    }
                 }
             }
         }
@@ -684,10 +691,37 @@ namespace ultimate
         /// </summary>
         private void clear_message()
         {
-            info_display.Rows.Clear();
-            warn_display.Rows.Clear();
+            clear_info_message();
+            clear_warn_message();
         }
 
+        /// <summary>
+        /// 清除步骤信息
+        /// </summary>
+        private void clear_info_message()
+        {
+            info_display.Rows.Clear();
+        }
 
+        /// <summary>
+        /// 清除警报信息
+        /// </summary>
+        private void clear_warn_message()
+        {
+            warn_display.Rows.Clear();
+        }
+        
+        /// <summary>
+        /// 当复位按钮按下后对应的操作
+        /// 1. 结束指示灯闪烁
+        /// 2. 清空列表信息
+        /// </summary>
+        private void reset()
+        {
+            //复位操作
+            current_control?.stop_down_arrow_blink();
+            current_control?.stop_up_arrow_blink();
+            clear_message();
+        }
     }
 }

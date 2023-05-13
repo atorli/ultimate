@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle21 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle22 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             foot_status = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
             current_label = new ToolStripStatusLabel();
+            rising_time = new ToolStripStatusLabel();
             main_layout = new TableLayoutPanel();
             right_vertical_spliter = new SplitContainer();
             info_display = new DataGridView();
@@ -43,7 +44,6 @@
             warn_display = new DataGridView();
             warn_datetime = new DataGridViewTextBoxColumn();
             warn_message = new DataGridViewTextBoxColumn();
-            rising_time = new ToolStripStatusLabel();
             foot_status.SuspendLayout();
             main_layout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)right_vertical_spliter).BeginInit();
@@ -59,29 +59,47 @@
             foot_status.GripMargin = new Padding(0);
             foot_status.ImageScalingSize = new Size(20, 20);
             foot_status.Items.AddRange(new ToolStripItem[] { server_connect_stratus, current_label, rising_time });
-            foot_status.Location = new Point(0, 859);
+            foot_status.Location = new Point(0, 861);
             foot_status.Name = "foot_status";
             foot_status.Padding = new Padding(1, 0, 18, 0);
-            foot_status.Size = new Size(1522, 36);
+            foot_status.Size = new Size(1522, 34);
             foot_status.TabIndex = 1;
             foot_status.Text = "statusStrip1";
             // 
             // server_connect_stratus
             // 
+            server_connect_stratus.BorderSides = ToolStripStatusLabelBorderSides.Right;
+            server_connect_stratus.BorderStyle = Border3DStyle.Raised;
             server_connect_stratus.DisplayStyle = ToolStripItemDisplayStyle.Text;
             server_connect_stratus.Font = new Font("Microsoft YaHei UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             server_connect_stratus.ForeColor = Color.Red;
+            server_connect_stratus.Margin = new Padding(0);
             server_connect_stratus.Name = "server_connect_stratus";
-            server_connect_stratus.Size = new Size(255, 30);
+            server_connect_stratus.Size = new Size(259, 34);
             server_connect_stratus.Text = "服务器连接状态：未连接";
             // 
             // current_label
             // 
+            current_label.BorderSides = ToolStripStatusLabelBorderSides.Right;
+            current_label.BorderStyle = Border3DStyle.Raised;
             current_label.Font = new Font("Microsoft YaHei UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             current_label.ForeColor = Color.Green;
+            current_label.Margin = new Padding(0);
             current_label.Name = "current_label";
-            current_label.Size = new Size(165, 30);
+            current_label.Size = new Size(169, 34);
             current_label.Text = "当前电流：N/A";
+            // 
+            // rising_time
+            // 
+            rising_time.BorderSides = ToolStripStatusLabelBorderSides.Right;
+            rising_time.BorderStyle = Border3DStyle.Raised;
+            rising_time.Font = new Font("Microsoft YaHei UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            rising_time.ForeColor = Color.Green;
+            rising_time.Margin = new Padding(0);
+            rising_time.Name = "rising_time";
+            rising_time.Size = new Size(169, 34);
+            rising_time.Text = "上升时间：N/A";
+            rising_time.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // main_layout
             // 
@@ -96,7 +114,7 @@
             main_layout.Name = "main_layout";
             main_layout.RowCount = 1;
             main_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            main_layout.Size = new Size(1522, 859);
+            main_layout.Size = new Size(1522, 861);
             main_layout.TabIndex = 4;
             // 
             // right_vertical_spliter
@@ -113,7 +131,7 @@
             // right_vertical_spliter.Panel2
             // 
             right_vertical_spliter.Panel2.Controls.Add(warn_display);
-            right_vertical_spliter.Size = new Size(679, 853);
+            right_vertical_spliter.Size = new Size(679, 855);
             right_vertical_spliter.SplitterDistance = 423;
             right_vertical_spliter.TabIndex = 5;
             // 
@@ -122,14 +140,14 @@
             info_display.AllowUserToAddRows = false;
             info_display.BackgroundColor = SystemColors.ControlLight;
             info_display.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle21.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = SystemColors.Control;
-            dataGridViewCellStyle21.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle21.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = DataGridViewTriState.True;
-            info_display.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            info_display.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             info_display.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             info_display.Columns.AddRange(new DataGridViewColumn[] { info_datetime, info_message });
             info_display.Dock = DockStyle.Fill;
@@ -140,8 +158,8 @@
             info_display.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             info_display.RowHeadersVisible = false;
             info_display.RowHeadersWidth = 51;
-            dataGridViewCellStyle22.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            info_display.RowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            info_display.RowsDefaultCellStyle = dataGridViewCellStyle2;
             info_display.RowTemplate.Height = 25;
             info_display.Size = new Size(679, 423);
             info_display.TabIndex = 4;
@@ -169,14 +187,14 @@
             warn_display.AllowUserToDeleteRows = false;
             warn_display.BackgroundColor = SystemColors.ControlLight;
             warn_display.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = SystemColors.Control;
-            dataGridViewCellStyle23.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle23.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.True;
-            warn_display.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            warn_display.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             warn_display.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             warn_display.Columns.AddRange(new DataGridViewColumn[] { warn_datetime, warn_message });
             warn_display.Dock = DockStyle.Fill;
@@ -185,11 +203,11 @@
             warn_display.ReadOnly = true;
             warn_display.RowHeadersVisible = false;
             warn_display.RowHeadersWidth = 51;
-            dataGridViewCellStyle24.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle24.ForeColor = Color.Red;
-            warn_display.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.Red;
+            warn_display.RowsDefaultCellStyle = dataGridViewCellStyle4;
             warn_display.RowTemplate.Height = 29;
-            warn_display.Size = new Size(679, 426);
+            warn_display.Size = new Size(679, 428);
             warn_display.TabIndex = 0;
             // 
             // warn_datetime
@@ -207,15 +225,6 @@
             warn_message.MinimumWidth = 6;
             warn_message.Name = "warn_message";
             warn_message.ReadOnly = true;
-            // 
-            // rising_time
-            // 
-            rising_time.Font = new Font("Microsoft YaHei UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            rising_time.ForeColor = Color.Green;
-            rising_time.Name = "rising_time";
-            rising_time.Size = new Size(165, 30);
-            rising_time.Text = "上升时间：N/A";
-            rising_time.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // main
             // 
