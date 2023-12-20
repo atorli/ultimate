@@ -241,7 +241,7 @@
             ShowDragStretch = true;
             ShowTitleIcon = true;
             Style = Sunny.UI.UIStyle.Custom;
-            Text = "ultimate";
+            Text = "XE08门板末检机";
             TitleFont = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ZoomScaleRect = new Rectangle(15, 15, 1184, 761);
             Shown += main_Shown;
