@@ -32,11 +32,11 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
             foot_status = new StatusStrip();
             server_connect_stratus = new ToolStripStatusLabel();
             current_label = new ToolStripStatusLabel();
             rising_time = new ToolStripStatusLabel();
-            main_layout = new TableLayoutPanel();
             right_vertical_spliter = new SplitContainer();
             info_display = new DataGridView();
             info_datetime = new DataGridViewTextBoxColumn();
@@ -44,14 +44,17 @@
             warn_display = new DataGridView();
             warn_datetime = new DataGridViewTextBoxColumn();
             warn_message = new DataGridViewTextBoxColumn();
+            main_layout = new SplitContainer();
             foot_status.SuspendLayout();
-            main_layout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)right_vertical_spliter).BeginInit();
             right_vertical_spliter.Panel1.SuspendLayout();
             right_vertical_spliter.Panel2.SuspendLayout();
             right_vertical_spliter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)info_display).BeginInit();
             ((System.ComponentModel.ISupportInitialize)warn_display).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)main_layout).BeginInit();
+            main_layout.Panel2.SuspendLayout();
+            main_layout.SuspendLayout();
             SuspendLayout();
             // 
             // foot_status
@@ -59,10 +62,9 @@
             foot_status.GripMargin = new Padding(0);
             foot_status.ImageScalingSize = new Size(20, 20);
             foot_status.Items.AddRange(new ToolStripItem[] { server_connect_stratus, current_label, rising_time });
-            foot_status.Location = new Point(0, 861);
+            foot_status.Location = new Point(2, 731);
             foot_status.Name = "foot_status";
-            foot_status.Padding = new Padding(1, 0, 18, 0);
-            foot_status.Size = new Size(1522, 34);
+            foot_status.Size = new Size(1180, 28);
             foot_status.TabIndex = 1;
             foot_status.Text = "statusStrip1";
             // 
@@ -75,7 +77,7 @@
             server_connect_stratus.ForeColor = Color.Red;
             server_connect_stratus.Margin = new Padding(0);
             server_connect_stratus.Name = "server_connect_stratus";
-            server_connect_stratus.Size = new Size(259, 34);
+            server_connect_stratus.Size = new Size(212, 28);
             server_connect_stratus.Text = "服务器连接状态：未连接";
             // 
             // current_label
@@ -86,7 +88,7 @@
             current_label.ForeColor = Color.Green;
             current_label.Margin = new Padding(0);
             current_label.Name = "current_label";
-            current_label.Size = new Size(169, 34);
+            current_label.Size = new Size(140, 28);
             current_label.Text = "当前电流：N/A";
             // 
             // rising_time
@@ -97,30 +99,15 @@
             rising_time.ForeColor = Color.Green;
             rising_time.Margin = new Padding(0);
             rising_time.Name = "rising_time";
-            rising_time.Size = new Size(169, 34);
+            rising_time.Size = new Size(140, 28);
             rising_time.Text = "上升时间：N/A";
             rising_time.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // main_layout
-            // 
-            main_layout.ColumnCount = 2;
-            main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55F));
-            main_layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
-            main_layout.Controls.Add(right_vertical_spliter, 1, 0);
-            main_layout.Dock = DockStyle.Fill;
-            main_layout.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
-            main_layout.Location = new Point(0, 0);
-            main_layout.Margin = new Padding(0);
-            main_layout.Name = "main_layout";
-            main_layout.RowCount = 1;
-            main_layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            main_layout.Size = new Size(1522, 861);
-            main_layout.TabIndex = 4;
             // 
             // right_vertical_spliter
             // 
             right_vertical_spliter.Dock = DockStyle.Fill;
-            right_vertical_spliter.Location = new Point(840, 3);
+            right_vertical_spliter.Location = new Point(0, 0);
+            right_vertical_spliter.Margin = new Padding(2, 3, 2, 3);
             right_vertical_spliter.Name = "right_vertical_spliter";
             right_vertical_spliter.Orientation = Orientation.Horizontal;
             // 
@@ -131,8 +118,9 @@
             // right_vertical_spliter.Panel2
             // 
             right_vertical_spliter.Panel2.Controls.Add(warn_display);
-            right_vertical_spliter.Size = new Size(679, 855);
-            right_vertical_spliter.SplitterDistance = 423;
+            right_vertical_spliter.Size = new Size(580, 695);
+            right_vertical_spliter.SplitterDistance = 341;
+            right_vertical_spliter.SplitterWidth = 3;
             right_vertical_spliter.TabIndex = 5;
             // 
             // info_display
@@ -158,10 +146,10 @@
             info_display.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             info_display.RowHeadersVisible = false;
             info_display.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point);
             info_display.RowsDefaultCellStyle = dataGridViewCellStyle2;
             info_display.RowTemplate.Height = 25;
-            info_display.Size = new Size(679, 423);
+            info_display.Size = new Size(580, 341);
             info_display.TabIndex = 4;
             // 
             // info_datetime
@@ -199,15 +187,16 @@
             warn_display.Columns.AddRange(new DataGridViewColumn[] { warn_datetime, warn_message });
             warn_display.Dock = DockStyle.Fill;
             warn_display.Location = new Point(0, 0);
+            warn_display.Margin = new Padding(2, 3, 2, 3);
             warn_display.Name = "warn_display";
             warn_display.ReadOnly = true;
             warn_display.RowHeadersVisible = false;
             warn_display.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.Font = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle4.ForeColor = Color.Red;
             warn_display.RowsDefaultCellStyle = dataGridViewCellStyle4;
             warn_display.RowTemplate.Height = 29;
-            warn_display.Size = new Size(679, 428);
+            warn_display.Size = new Size(580, 351);
             warn_display.TabIndex = 0;
             // 
             // warn_datetime
@@ -226,34 +215,53 @@
             warn_message.Name = "warn_message";
             warn_message.ReadOnly = true;
             // 
+            // main_layout
+            // 
+            main_layout.Dock = DockStyle.Fill;
+            main_layout.Location = new Point(2, 36);
+            main_layout.Name = "main_layout";
+            // 
+            // main_layout.Panel2
+            // 
+            main_layout.Panel2.Controls.Add(right_vertical_spliter);
+            main_layout.Size = new Size(1180, 695);
+            main_layout.SplitterDistance = 597;
+            main_layout.SplitterWidth = 3;
+            main_layout.TabIndex = 6;
+            // 
             // main
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1522, 895);
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(1184, 761);
             Controls.Add(main_layout);
             Controls.Add(foot_status);
-            Margin = new Padding(4);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "main";
-            StartPosition = FormStartPosition.CenterScreen;
-            WindowState = FormWindowState.Maximized;
+            Padding = new Padding(2, 36, 2, 2);
+            ShowDragStretch = true;
+            ShowTitleIcon = true;
+            Style = Sunny.UI.UIStyle.Custom;
+            Text = "ultimate";
+            TitleFont = new Font("Microsoft YaHei", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ZoomScaleRect = new Rectangle(15, 15, 1184, 761);
             Shown += main_Shown;
             foot_status.ResumeLayout(false);
             foot_status.PerformLayout();
-            main_layout.ResumeLayout(false);
             right_vertical_spliter.Panel1.ResumeLayout(false);
             right_vertical_spliter.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)right_vertical_spliter).EndInit();
             right_vertical_spliter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)info_display).EndInit();
             ((System.ComponentModel.ISupportInitialize)warn_display).EndInit();
+            main_layout.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)main_layout).EndInit();
+            main_layout.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private StatusStrip foot_status;
-        private TableLayoutPanel main_layout;
         private DataGridView info_display;
         private SplitContainer right_vertical_spliter;
         private DataGridView warn_display;
@@ -264,5 +272,6 @@
         private ToolStripStatusLabel server_connect_stratus;
         private ToolStripStatusLabel current_label;
         private ToolStripStatusLabel rising_time;
+        private SplitContainer main_layout;
     }
 }

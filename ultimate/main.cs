@@ -3,10 +3,11 @@ using Microsoft.Extensions.Configuration;
 using NLog;
 using System.Text;
 using NLog.Fluent;
+using Sunny.UI;
 
 namespace ultimate
 {
-    public partial class main : Form
+    public partial class main : UIForm
     {
         /// <summary>
         /// opc服务器对象，必须在创建对象的时候创建它
@@ -106,6 +107,11 @@ namespace ultimate
             {
                 values.Dock = DockStyle.Fill;
             }
+
+            current_control = modes[1];
+
+            //默认为第一个模式
+            main_layout.Panel1.Controls.Add(current_control);
         }
 
         /// <summary>
@@ -138,11 +144,10 @@ namespace ultimate
                             {
                                 if (current_control != null)
                                 {
-                                    main_layout.Controls.Remove(current_control);
+                                    main_layout.Panel1.Controls.Remove(current_control);
                                 }
-
-                                main_layout.Controls.Add(modes[mode_id]);
                                 current_control = modes[mode_id];
+                               main_layout.Panel1.Controls.Add(current_control);                               
                             }
                             else
                             {
